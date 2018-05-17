@@ -40,7 +40,33 @@ class GoalModelSpec extends FunSpec {
     }
     it("should be json serializable") {
       val json = Json.toJson(goalMock)
-      println(Json.prettyPrint(json))
+      val expectedJson =
+        s"""
+           |{
+           |  "id" : "$goalMockUUID",
+           |  "title" : "A mock goal model",
+           |  "targetDate" : "$targetDate",
+           |  "sessions" : [ {
+           |    "sessionNumber" : 1,
+           |    "date" : "$today",
+           |    "exercises" : [ {
+           |      "lift" : "Bench Press",
+           |      "weight" : 205,
+           |      "weightUnit" : "LBS",
+           |      "repCount" : 3,
+           |      "setCount" : 8
+           |    }, {
+           |      "lift" : "Squat",
+           |      "weight" : 235,
+           |      "weightUnit" : "LBS",
+           |      "repCount" : 3,
+           |      "setCount" : 5
+           |    } ]
+           |  } ]
+           |}
+         """.stripMargin
+
+      assert(json == Json.parse(expectedJson))
     }
   }
 
