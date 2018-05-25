@@ -1,23 +1,47 @@
 package controllers
 
+import java.time.LocalDate
+
+import models._
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerTest
 import play.api.http.HttpVerbs.GET
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.libs.json.Json
-import play.api.mvc.Headers
-import play.api.test.{FakeRequest, Helpers, Injecting}
+import play.api.libs.json.{JsObject, JsValue, Json}
+import play.api.mvc.{Headers, Result}
+import play.api.test.{FakeRequest, Injecting}
 import play.modules.reactivemongo.ReactiveMongoApi
 import reactivemongo.api.DefaultDB
-import utils.FileReader
+import values._
+import values.wrappers.{DateValueWrapper, IntValueWrapper, StringValueWrapper}
+
+import scala.concurrent.{ExecutionContext, Future}
 
 /**
-  * Helpers is passing in an implicit timeout for contentType
+  * `Helpers` is passing in an implicit timeout for contentType
   */
 import play.api.test.Helpers._
 
-import scala.concurrent.{ExecutionContext, Future}
+
+
+object GoalsControllerSpec {
+
+  protected def createRecord(recordToInsert: JsObject, gc: GoalsController): Future[Result] = {
+
+    val request =
+      FakeRequest(
+        GET,
+        s"/goals",
+        headers = Headers("Content-Type" -> "application/json"),
+        body = recordToInsert
+      )
+
+    gc.createFromJson().apply(request)
+  }
+
+}
+
 
 class GoalsControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecting {
 
@@ -43,23 +67,49 @@ class GoalsControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injectin
 
     val testController = appBuilder.injector.instanceOf[GoalsController]
 
-    "write to the database" in {
+    val today: LocalDate = LocalDate.now()
 
-      val body = FileReader.loadToString("test.json")
-      val bodyJson = Json.parse(body)
+    val targetDate: LocalDate = today.plusDays(5)
 
-      val request =
-        FakeRequest(
-          GET,
-          s"/goals",
-          headers = Headers("Content-Type" -> "application/json"),
-          body = bodyJson
-        )
+    val exercises =
+      Seq(ExerciseModelSpec.benchPress, ExerciseModelSpec.squat)
 
-      val c = testController.createFromJson().apply(request)
+    val sessionMock =
+      SessionModel(
+        sessionNumber = IntValueWrapper[SessionNumberValue](1),
+        date = DateValueWrapper[SessionDateValue](today),
+        exercises = exercises
+      )
 
-      status(c) mustBe CREATED
+
+    val mockModel =
+      GoalModel.apply(
+        id = StringValueWrapper[UUIDValue]("2f742976-0223-45a4-97b3-928e855fcb7a"),
+        title = StringValueWrapper[GoalTitle]("A mock goal model"),
+        targetDate = DateValueWrapper[TargetDate](targetDate),
+        sessions = Seq(sessionMock)
+      )
+
+
+
+    val mockRecordJson = Json.toJsObject(mockModel)
+    // val noId = "id" -> Json.parse("")
+
+    // val mockRecordId = (mockRecordJson \ "id").getOrElse(JsObject(Map(noId)))
+
+    "write a mock record to database" in {
+      val record = GoalsControllerSpec.createRecord(mockRecordJson, testController)
+      status(record) mustBe CREATED
     }
+
+
+//    "find that mock record in database" in {
+//      val query = JsObject(Map("id" -> mockRecordId))
+//      val found = testController.find(query)
+//
+//      println(found)
+//
+//    }
 
   }
 

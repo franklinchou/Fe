@@ -3,11 +3,12 @@ package models
 import java.time.LocalDate
 import java.util.UUID
 
-import models.ExerciseSpec.{benchPress, squat}
+import models.ExerciseModelSpec.{benchPress, squat}
 import org.scalatest.FunSpec
 import play.api.libs.json.Json
 import values._
 import values.wrappers.{DateValueWrapper, IntValueWrapper, StringValueWrapper}
+
 
 class GoalModelSpec extends FunSpec {
 
@@ -21,8 +22,8 @@ class GoalModelSpec extends FunSpec {
 
   val sessionMock =
     SessionModel(
-      sessionNumber = IntValueWrapper[SessionNumber](1),
-      date = DateValueWrapper[SessionDate](today),
+      sessionNumber = IntValueWrapper[SessionNumberValue](1),
+      date = DateValueWrapper[SessionDateValue](today),
       exercises = exercises
     )
 

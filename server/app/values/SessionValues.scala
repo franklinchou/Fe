@@ -1,4 +1,4 @@
 package values
 
-sealed trait SessionNumber
-sealed trait SessionDate
+sealed trait SessionNumberValue
+sealed trait SessionDateValue

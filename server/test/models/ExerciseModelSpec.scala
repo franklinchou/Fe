@@ -3,7 +3,7 @@ package models
 import values.wrappers.{BigDecimalValueWrapper, IntValueWrapper, StringValueWrapper}
 import values._
 
-object ExerciseSpec {
+object ExerciseModelSpec {
 
   val benchPress =
     ExerciseModel(

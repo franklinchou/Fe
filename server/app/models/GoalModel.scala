@@ -5,6 +5,8 @@ import play.api.libs.json.OFormat
 import values.wrappers.{DateValueWrapper, StringValueWrapper}
 import values.{GoalTitle, TargetDate, UUIDValue}
 
+
+
 object GoalModel {
 
   implicit lazy val jsonFormat: OFormat[GoalModel] = Jsonx.formatCaseClass[GoalModel]
