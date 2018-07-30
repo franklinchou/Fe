@@ -23,6 +23,7 @@ libraryDependencies ++= Seq(
 )
 
 
+
 import org.scoverage.coveralls.Imports.CoverallsKeys._
 
 coverallsTokenFile := Some("conf/.token.txt")
