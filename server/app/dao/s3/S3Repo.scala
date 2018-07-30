@@ -27,7 +27,7 @@ trait S3Repo[R <: AbstractJsonModel] extends AbstractDao {
     * @param record
     * @return
     */
-  def create(record: R): Future[Boolean] = upsert(record)
+  def create(record: R)(implicit ec: ExecutionContext): Future[Boolean] = upsert(record)
 
 
   /**
@@ -36,7 +36,7 @@ trait S3Repo[R <: AbstractJsonModel] extends AbstractDao {
     * @param record
     * @return
     */
-  def upsert(record: R): Future[Boolean] = {
+  def upsert(record: R)(implicit ec: ExecutionContext): Future[Boolean] = {
 
     Logger.info(s"Inserting record ${record.id.str} into $bucket")
 
@@ -61,7 +61,7 @@ trait S3Repo[R <: AbstractJsonModel] extends AbstractDao {
     * @param id
     * @return
     */
-  def delete(id: AbstractModelId): Future[Boolean] = {
+  def delete(id: AbstractModelId)(implicit ec: ExecutionContext): Future[Boolean] = {
 
     Logger.info(s"Deleting record ${id.str} from $bucket")
 
