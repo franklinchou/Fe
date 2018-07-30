@@ -1,4 +1,5 @@
-name := """weights"""
+name := """server"""
+
 organization := "com.fmc"
 
 version := "1.0-SNAPSHOT"
