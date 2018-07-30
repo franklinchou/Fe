@@ -37,7 +37,7 @@ trait MongoRepo[R <: AbstractJsonModel] extends AbstractDao {
     * @param record
     * @return
     */
-  def create(record: R): Future[Boolean] = {
+  def create(record: R)(implicit ec: ExecutionContext): Future[Boolean] = {
     Logger.info(s"Inserting record ${record.id.str} into $collectionName")
 
     collection
