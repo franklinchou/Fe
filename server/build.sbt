@@ -21,3 +21,8 @@ libraryDependencies ++= Seq(
   guice,
   "com.tzavellas" % "sse-guice" % "0.7.1"
 )
+
+
+import org.scoverage.coveralls.Imports.CoverallsKeys._
+
+coverallsTokenFile := Some("conf/.token.txt")
