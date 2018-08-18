@@ -37,7 +37,7 @@ trait MongoRepo[R <: Record] extends UnstructuredDao {
     * @param record
     * @return
     */
-  def create(record: R)(ec: ExecutionContext): Future[Boolean] = {
+  def create(record: R)(implicit ec: ExecutionContext): Future[Boolean] = {
     Logger.info(s"Inserting record ${record.id.str} into $collectionName")
 
     collection
@@ -53,10 +53,11 @@ trait MongoRepo[R <: Record] extends UnstructuredDao {
     * @param ec
     * @return
     */
-  def upsert(record: R)(ec: ExecutionContext): Future[Boolean] = {
+  def upsert(record: R)(implicit ec: ExecutionContext): Future[Boolean] = {
+
     Logger.info(s"Upserting record ${record.id.str} into $collectionName")
-    val selector = Json.obj("id" -> record.id.str)
-    val modifier = Json.obj("$set" -> record.toJson)
+    val selector = record.id
+    val modifier = Json.obj("blah" -> "blah")
 
     collection
       .flatMap(_.update(selector, modifier, upsert = true))
