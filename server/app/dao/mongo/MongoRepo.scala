@@ -11,15 +11,15 @@ import reactivemongo.play.json.collection.JSONCollection
 
 import scala.concurrent.{ExecutionContext, Future}
 
-trait MongoRepo[R <: Record] extends UnstructuredDao {
+trait MongoRepo[R <: Record] extends UnstructuredDao[R] {
 
-  val reactiveMongoApi: ReactiveMongoApi
+  val rma: ReactiveMongoApi
 
 
   /**
     * Database
     */
-  val db = reactiveMongoApi.database
+  val db = rma.database
 
 
   /**
@@ -77,7 +77,7 @@ trait MongoRepo[R <: Record] extends UnstructuredDao {
     */
   def delete(modelId: StringContainer[AbstractModelId])(implicit ec: ExecutionContext): Future[Boolean] = {
     Logger.info(s"Deleting record ${modelId.id} from $collectionName")
-    val selector = Json.obj("id" -> modelId.id)
+    val selector = Json.obj("id" -> modelId.toString)
 
     collection
       .flatMap(_.remove(selector))
