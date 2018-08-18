@@ -3,8 +3,8 @@ package dao.mongo
 import dao.UnstructuredDao
 import models.{AbstractModelId, Record}
 import play.api.Logger
-import play.api.libs.json.Json
 import play.modules.reactivemongo.ReactiveMongoApi
+import reactivemongo.play.json._
 import reactivemongo.play.json.collection.JSONCollection
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -57,8 +57,8 @@ trait MongoRepo[R <: Record] extends UnstructuredDao {
 
     Logger.info(s"Upserting record ${record.id.str} into $collectionName")
     val selector = record.id
-    val modifier = Json.obj("blah" -> "blah")
-
+    val modifier = record.toJson
+    
     collection
       .flatMap(_.update(selector, modifier, upsert = true))
       .map(_.ok)

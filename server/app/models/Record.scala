@@ -1,6 +1,6 @@
 package models
 
-import play.api.libs.json.JsObject
+import play.api.libs.json.{JsObject, Json}
 
 
 trait Record {
@@ -12,10 +12,10 @@ trait Record {
 
 
   /**
-    * Create json from object
+    * Coerce a generic record into a Json object
     *
     * @return
     */
-  def toJson: JsObject
+  def toJson: JsObject = Json.obj("id" -> id.str)
 
 }

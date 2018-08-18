@@ -1,6 +1,6 @@
 package dao
 
-import models.{Record, AbstractModelId}
+import models.{AbstractModelId, Record}
 
 import scala.concurrent.Future
 
