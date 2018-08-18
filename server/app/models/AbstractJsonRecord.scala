@@ -1,6 +1,6 @@
 package models
 
-import play.api.libs.json.JsObject
+import play.api.libs.json.{JsObject, Json}
 
 trait AbstractJsonRecord extends Product with Serializable {
 
@@ -13,6 +13,6 @@ trait AbstractJsonRecord extends Product with Serializable {
   /**
     * Convert the record to Json
     */
-  def toJson: JsObject
+  implicit def toJson: JsObject = Json.toJsObject(this)
 
 }
