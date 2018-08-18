@@ -2,6 +2,6 @@ package models
 
 trait AbstractModel {
 
-  val id: AbstractModelId
+  val id: Id[AbstractModelId]
 
 }

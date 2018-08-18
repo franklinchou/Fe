@@ -1,7 +1,7 @@
 package dao.mongo
 
 import dao.UnstructuredDao
-import models.{AbstractJsonRecord, AbstractModelId}
+import models.{AbstractJsonRecord, AbstractModelId, Id}
 import play.api.Logger
 import play.api.libs.json.Json
 import play.modules.reactivemongo.ReactiveMongoApi
@@ -38,7 +38,7 @@ trait MongoRepo[R <: AbstractJsonRecord] extends UnstructuredDao {
     * @return
     */
   def create(record: R)(implicit ec: ExecutionContext): Future[Boolean] = {
-    Logger.info(s"Inserting record ${record.id.str} into $collectionName")
+    Logger.info(s"Inserting record ${record.id.toString} into $collectionName")
 
     collection
       .flatMap(_.insert(record.toJson))
@@ -54,9 +54,11 @@ trait MongoRepo[R <: AbstractJsonRecord] extends UnstructuredDao {
     * @return
     */
   def upsert(record: R)(implicit ec: ExecutionContext): Future[Boolean] = {
-    Logger.info(s"Upserting record ${record.id.str} into $collectionName")
-    val selector = Json.obj("id" -> record.id.str)
+    val id = record.id.toString
+    val selector = Json.obj("id" -> id)
     val modifier = Json.obj("$set" -> record.toJson)
+
+    Logger.info(s"Upserting record $id into $collectionName")
 
     collection
       .flatMap(_.update(selector, modifier, upsert = true))
@@ -67,13 +69,13 @@ trait MongoRepo[R <: AbstractJsonRecord] extends UnstructuredDao {
   /**
     * Remove a record from the collection
     *
-    * @param id
+    * @param modelId
     * @param ec
     * @return
     */
-  def delete(id: AbstractModelId)(implicit ec: ExecutionContext): Future[Boolean] = {
-    Logger.info(s"Deleting record ${id.str} from $collectionName")
-    val selector = Json.obj("id" -> id.str)
+  def delete(modelId: Id[AbstractModelId])(implicit ec: ExecutionContext): Future[Boolean] = {
+    Logger.info(s"Deleting record ${modelId.id} from $collectionName")
+    val selector = Json.obj("id" -> modelId.id)
 
     collection
       .flatMap(_.remove(selector))

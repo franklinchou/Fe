@@ -7,7 +7,7 @@ trait AbstractJsonRecord extends Product with Serializable {
   /**
     * Id of the record
     */
-  val id: AbstractModelId
+  val id: Id[AbstractModelId]
 
 
   /**
