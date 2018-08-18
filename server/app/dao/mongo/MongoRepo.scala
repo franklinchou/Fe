@@ -1,16 +1,17 @@
 package dao.mongo
 
-import containers.StringContainer
 import dao.UnstructuredDao
-import models.{AbstractJsonRecord, AbstractModelId}
+import lib.containers.StringContainer
+import models.{Record, AbstractModelId}
 import play.api.Logger
 import play.api.libs.json.Json
 import play.modules.reactivemongo.ReactiveMongoApi
+import reactivemongo.play.json._
 import reactivemongo.play.json.collection.JSONCollection
 
 import scala.concurrent.{ExecutionContext, Future}
 
-trait MongoRepo[R <: AbstractJsonRecord] extends UnstructuredDao {
+trait MongoRepo[R <: Record] extends UnstructuredDao {
 
   val reactiveMongoApi: ReactiveMongoApi
 

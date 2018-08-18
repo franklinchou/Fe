@@ -1,3 +1,3 @@
 package models.exercises
 
-sealed trait Squat extends Exercise
+case object Squat extends Exercise

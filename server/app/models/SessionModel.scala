@@ -3,7 +3,8 @@ package models
 import java.time.LocalDate
 
 import ai.x.play.json.Jsonx
-import containers.StringContainer
+import lib.containers.StringContainer
+import models.strength.SetModel
 import play.api.libs.json.OFormat
 
 
@@ -18,4 +19,4 @@ object SessionModel {
 
 case class SessionModel(id: StringContainer[AbstractModelId],
                         date: LocalDate,
-                        exercises: List[ExerciseModel]) extends AbstractModel
+                        sets: List[SetModel]) extends AbstractModel

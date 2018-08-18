@@ -1,6 +1,6 @@
 package models
 
-import containers.StringContainer
+import lib.containers.StringContainer
 
 trait AbstractModel {
 

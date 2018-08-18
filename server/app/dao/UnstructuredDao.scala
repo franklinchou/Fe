@@ -1,6 +1,6 @@
 package dao
 
-import containers.StringContainer
+import lib.containers.StringContainer
 import models.{AbstractModel, AbstractModelId}
 
 import scala.concurrent.Future
