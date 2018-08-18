@@ -7,7 +7,7 @@ class ReportingController @Inject()(cc: ControllerComponents) extends AbstractCo
 
 
   def index() = Action { implicit request: Request[AnyContent] =>
-    Ok()
+    Ok
   }
 
 }
