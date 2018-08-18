@@ -1,21 +1,23 @@
 package controllers
 
-import akka.util.ByteString
-import play.api.http.HttpEntity
 import javax.inject._
 import play.api.mvc._
 
-
+/**
+ * This controller creates an `Action` to handle HTTP requests to the
+ * application's home page.
+ */
 @Singleton
 class HomeController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
-  def index(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-
-    val healthMessage = ByteString("I'm alive")
-
-    Result(
-      header = ResponseHeader(200, Map.empty),
-      body = HttpEntity.Strict(healthMessage, Some("text/html"))
-    )
+  /**
+   * Create an Action to render an HTML page.
+   *
+   * The configuration in the `routes` file means that this method
+   * will be called when the application receives a `GET` request with
+   * a path of `/`.
+   */
+  def health() = Action { implicit request: Request[AnyContent] =>
+    Ok("It's alive!")
   }
 }
