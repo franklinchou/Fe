@@ -8,7 +8,7 @@ import scala.concurrent.Future
 /**
   * Abstract unstructured database access object
   */
-trait AbstractDao {
+trait UnstructuredDao {
 
 
   /**
