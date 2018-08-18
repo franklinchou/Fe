@@ -1,5 +1,6 @@
 package models
 
+import containers.StringContainer
 import play.api.libs.json.{JsObject, Json}
 
 trait AbstractJsonRecord extends Product with Serializable {
@@ -7,7 +8,7 @@ trait AbstractJsonRecord extends Product with Serializable {
   /**
     * Id of the record
     */
-  val id: Id[AbstractModelId]
+  val id: StringContainer[AbstractModelId]
 
 
   /**

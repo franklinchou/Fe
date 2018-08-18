@@ -1,7 +1,9 @@
 package models
 
+import containers.StringContainer
+
 trait AbstractModel {
 
-  val id: Id[AbstractModelId]
+  val id: StringContainer[AbstractModelId]
 
 }

@@ -1,7 +1,6 @@
 package models.strength
 
-import models.{AbstractModelId, Id}
+import containers.StringContainer
+import models.AbstractModelId
 
-case class SetModel(id: Id[AbstractModelId],
-                    exercise: String,
-                    time: Option[String])
+case class SetModel(id: StringContainer[AbstractModelId])

@@ -1,7 +1,8 @@
 package dao.mongo
 
+import containers.StringContainer
 import dao.UnstructuredDao
-import models.{AbstractJsonRecord, AbstractModelId, Id}
+import models.{AbstractJsonRecord, AbstractModelId}
 import play.api.Logger
 import play.api.libs.json.Json
 import play.modules.reactivemongo.ReactiveMongoApi
@@ -73,7 +74,7 @@ trait MongoRepo[R <: AbstractJsonRecord] extends UnstructuredDao {
     * @param ec
     * @return
     */
-  def delete(modelId: Id[AbstractModelId])(implicit ec: ExecutionContext): Future[Boolean] = {
+  def delete(modelId: StringContainer[AbstractModelId])(implicit ec: ExecutionContext): Future[Boolean] = {
     Logger.info(s"Deleting record ${modelId.id} from $collectionName")
     val selector = Json.obj("id" -> modelId.id)
 
