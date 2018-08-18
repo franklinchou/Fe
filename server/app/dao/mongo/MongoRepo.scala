@@ -58,7 +58,7 @@ trait MongoRepo[R <: Record] extends UnstructuredDao {
     Logger.info(s"Upserting record ${record.id.str} into $collectionName")
     val selector = record.id
     val modifier = record.toJson
-    
+
     collection
       .flatMap(_.update(selector, modifier, upsert = true))
       .map(_.ok)
