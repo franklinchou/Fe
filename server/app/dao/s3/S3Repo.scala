@@ -5,14 +5,14 @@ import java.io.ByteArrayInputStream
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.model.{DeleteObjectRequest, ObjectMetadata}
 import dao.UnstructuredDao
-import models.{AbstractJsonRecord, AbstractModelId}
+import models.{Record, AbstractModelId}
 import play.api.Logger
 import play.api.libs.json.Json
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success, Try}
 
-trait S3Repo[R <: AbstractJsonRecord] extends UnstructuredDao {
+trait S3Repo[R <: Record] extends UnstructuredDao {
 
 
   val bucket: String

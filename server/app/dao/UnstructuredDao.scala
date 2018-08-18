@@ -1,6 +1,6 @@
 package dao
 
-import models.{AbstractModel, AbstractModelId}
+import models.{Record, AbstractModelId}
 
 import scala.concurrent.Future
 
@@ -17,7 +17,7 @@ trait UnstructuredDao {
     * @param record
     * @return
     */
-  def create(record: AbstractModel): Future[Boolean]
+  def create(record: Record): Future[Boolean]
 
 
   /**
@@ -26,7 +26,7 @@ trait UnstructuredDao {
     * @param record
     * @return
     */
-  def upsert(record: AbstractModel): Future[Boolean]
+  def upsert(record: Record): Future[Boolean]
 
 
   /**
