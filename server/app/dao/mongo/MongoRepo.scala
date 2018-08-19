@@ -1,23 +1,26 @@
 package dao.mongo
 
 import dao.UnstructuredDao
+import lib.containers.StringContainer
 import models.{AbstractModelId, Record}
 import play.api.Logger
+import play.api.libs.json.Json
 import play.modules.reactivemongo.ReactiveMongoApi
 import reactivemongo.play.json._
 import reactivemongo.play.json.collection.JSONCollection
 
 import scala.concurrent.{ExecutionContext, Future}
 
-trait MongoRepo[R <: Record] extends UnstructuredDao {
+trait MongoRepo[R <: Record] extends UnstructuredDao[R] {
 
-  val reactiveMongoApi: ReactiveMongoApi
+
+  val rma: ReactiveMongoApi
 
 
   /**
     * Database
     */
-  val db = reactiveMongoApi.database
+  val db = rma.database
 
 
   /**
@@ -38,7 +41,7 @@ trait MongoRepo[R <: Record] extends UnstructuredDao {
     * @return
     */
   def create(record: R)(implicit ec: ExecutionContext): Future[Boolean] = {
-    Logger.info(s"Inserting record ${record.id.str} into $collectionName")
+    Logger.info(s"Inserting record ${record.id.toString} into $collectionName")
 
     collection
       .flatMap(_.insert(record.toJson))
@@ -54,10 +57,11 @@ trait MongoRepo[R <: Record] extends UnstructuredDao {
     * @return
     */
   def upsert(record: R)(implicit ec: ExecutionContext): Future[Boolean] = {
+    val id = record.id.toString
+    val selector = Json.obj("id" -> id)
+    val modifier = Json.obj("$set" -> record.toJson)
 
-    Logger.info(s"Upserting record ${record.id.str} into $collectionName")
-    val selector = record.id
-    val modifier = record.toJson
+    Logger.info(s"Upserting record $id into $collectionName")
 
     collection
       .flatMap(_.update(selector, modifier, upsert = true))
@@ -68,14 +72,16 @@ trait MongoRepo[R <: Record] extends UnstructuredDao {
   /**
     * Remove a record from the collection
     *
-    * @param id
+    * @param modelId
     * @param ec
     * @return
     */
-  def delete(id: AbstractModelId)(implicit ec: ExecutionContext): Future[Boolean] = {
-    Logger.info(s"Deleting record ${id.str} from $collectionName")
+  def delete(modelId: StringContainer[AbstractModelId])(implicit ec: ExecutionContext): Future[Boolean] = {
+    Logger.info(s"Deleting record ${modelId.id} from $collectionName")
+    val selector = Json.obj("id" -> modelId.toString)
+
     collection
-      .flatMap(_.remove(id))
+      .flatMap(_.remove(selector))
       .map(_.ok)
   }
 

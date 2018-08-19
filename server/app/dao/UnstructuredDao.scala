@@ -1,5 +1,7 @@
 package dao
 
+
+import lib.containers.StringContainer
 import models.{AbstractModelId, Record}
 
 import scala.concurrent.Future
@@ -8,7 +10,7 @@ import scala.concurrent.Future
 /**
   * Abstract unstructured database access object
   */
-trait UnstructuredDao {
+trait UnstructuredDao[R <: Record] {
 
 
   /**
@@ -35,6 +37,6 @@ trait UnstructuredDao {
     * @param id
     * @return
     */
-  def delete(id: AbstractModelId): Future[Boolean]
+  def delete(id: StringContainer[AbstractModelId]): Future[Boolean]
 
 }

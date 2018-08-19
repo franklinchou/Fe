@@ -1,14 +1,14 @@
 package models
 
+import lib.containers.StringContainer
 import play.api.libs.json.{JsObject, Json}
-
 
 trait Record {
 
   /**
-    * This model's id
+    * Id of the record
     */
-  val id: AbstractModelId
+  val id: StringContainer[AbstractModelId]
 
 
   /**
@@ -16,6 +16,6 @@ trait Record {
     *
     * @return
     */
-  def toJson: JsObject = Json.obj("id" -> id.str)
+  def toJson: JsObject = Json.obj("id" -> id.toString)
 
 }
