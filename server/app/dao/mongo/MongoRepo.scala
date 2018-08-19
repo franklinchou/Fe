@@ -11,15 +11,15 @@ import reactivemongo.play.json.collection.JSONCollection
 
 import scala.concurrent.{ExecutionContext, Future}
 
-trait MongoRepo[R <: Record] extends UnstructuredDao {
+trait MongoRepo[R <: Record] extends UnstructuredDao[R] {
 
-  val reactiveMongoApi: ReactiveMongoApi
+  val rma: ReactiveMongoApi
 
 
   /**
     * Database
     */
-  val db = reactiveMongoApi.database
+  val db = rma.database
 
 
   /**

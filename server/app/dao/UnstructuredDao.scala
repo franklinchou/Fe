@@ -1,7 +1,7 @@
 package dao
 
 import lib.containers.StringContainer
-import models.{AbstractModel, AbstractModelId}
+import models.{AbstractModel, AbstractModelId, Record}
 
 import scala.concurrent.Future
 
@@ -9,7 +9,7 @@ import scala.concurrent.Future
 /**
   * Abstract unstructured database access object
   */
-trait UnstructuredDao {
+trait UnstructuredDao[R <: Record] {
 
 
   /**
