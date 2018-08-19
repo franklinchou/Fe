@@ -2,7 +2,7 @@ package dao.mongo
 
 import dao.UnstructuredDao
 import lib.containers.StringContainer
-import models.{Record, AbstractModelId}
+import models.{AbstractModelId, Record}
 import play.api.Logger
 import play.api.libs.json.Json
 import play.modules.reactivemongo.ReactiveMongoApi
@@ -12,6 +12,7 @@ import reactivemongo.play.json.collection.JSONCollection
 import scala.concurrent.{ExecutionContext, Future}
 
 trait MongoRepo[R <: Record] extends UnstructuredDao[R] {
+
 
   val rma: ReactiveMongoApi
 
@@ -80,7 +81,7 @@ trait MongoRepo[R <: Record] extends UnstructuredDao[R] {
     val selector = Json.obj("id" -> modelId.id)
 
     collection
-      .flatMap(_.remove(selector))
+      .flatMap(_.remove(modelId))
       .map(_.ok)
   }
 

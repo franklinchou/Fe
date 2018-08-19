@@ -12,6 +12,7 @@ import play.api.libs.json.Json
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success, Try}
 
+
 trait S3Repo[R <: Record] extends UnstructuredDao[R] {
 
 
