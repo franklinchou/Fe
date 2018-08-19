@@ -17,8 +17,7 @@ object ExerciseModel {
 
 
 case class ExerciseModel(id: StringContainer[AbstractModelId],
-                         /* exercise: Exercise, */
-                         exercise: String,
+                         exercise: Exercise,
                          description: String,
                          variation: String,
                          weight: Double
