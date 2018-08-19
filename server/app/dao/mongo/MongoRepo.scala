@@ -78,10 +78,10 @@ trait MongoRepo[R <: Record] extends UnstructuredDao[R] {
     */
   def delete(modelId: StringContainer[AbstractModelId])(implicit ec: ExecutionContext): Future[Boolean] = {
     Logger.info(s"Deleting record ${modelId.id} from $collectionName")
-    val selector = Json.obj("id" -> modelId.id)
+    val selector = Json.obj("id" -> modelId.toString)
 
     collection
-      .flatMap(_.remove(modelId))
+      .flatMap(_.remove(selector))
       .map(_.ok)
   }
 
