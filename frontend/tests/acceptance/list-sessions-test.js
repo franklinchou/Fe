@@ -10,5 +10,10 @@ module('Acceptance | list sessions', function(hooks) {
     assert.equal(currentURL(), '/sessions', 'should redirect to /sessions');
   });
 
+  test('test about link', async function(assert) {
+    await visit('/');
+    await click(".menu-about");
+    assert.equal(currentURL(), '/about', 'should navigate to /about')
+  });
 
 });
