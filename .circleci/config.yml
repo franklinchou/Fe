@@ -3,12 +3,10 @@ jobs:
   frontend-test:
     docker:
         - image: circleci/node:8.11-browsers
-    working_directory: ~/Fe/frontend
+    working_directory: ~/Fe
     steps:
         - checkout
         # download & cache dependencies
-        - run: ls /home/circleci/Fe/frontend
-        - run: ls
         - run: cat /home/circleci/Fe/frontend/yarn.lock
         - restore_cache:
             keys:
