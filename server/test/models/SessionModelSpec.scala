@@ -16,8 +16,7 @@ object SessionModelSpec {
   val mockBenchPress =
     ExerciseModel(
       StringContainer.apply[AbstractModelId]("mock-exercise-1"),
-      "BenchPress", // TODO Use Exercise model
-      // BenchPress,
+      BenchPress,
       "",
       "Standard bench press",
       135.00
