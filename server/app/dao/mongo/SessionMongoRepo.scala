@@ -1,6 +1,7 @@
 package dao.mongo
 
 import com.google.inject.Inject
+import dao.`abstract`.SessionRepo
 import lib.containers.StringContainer
 import models._
 import play.api.libs.json.{JsObject, Json}
@@ -11,7 +12,7 @@ import reactivemongo.play.json._
 import scala.concurrent.{ExecutionContext, Future}
 
 class SessionMongoRepo @Inject()(val rma: ReactiveMongoApi)
-                                (implicit ec: ExecutionContext) extends MongoRepo[SessionModel] {
+                                (implicit ec: ExecutionContext) extends SessionRepo with MongoRepo[SessionModel] {
 
 
   /**
