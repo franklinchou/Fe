@@ -5,9 +5,10 @@ import { setupApplicationTest } from 'ember-qunit';
 module('Acceptance | list sessions', function(hooks) {
   setupApplicationTest(hooks);
 
-  test('visiting /list-sessions', async function(assert) {
-    await visit('/list-sessions');
-
-    assert.equal(currentURL(), '/list-sessions');
+  test('should show my sessions as home', async function(assert) {
+    await visit('/');
+    assert.equal(currentURL(), '/sessions', 'should redirect to /sessions');
   });
+
+
 });
