@@ -5,7 +5,7 @@ import java.io.ByteArrayInputStream
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.model.{DeleteObjectRequest, ObjectMetadata}
 import dao.UnstructuredDao
-import models.{Record, AbstractModelId}
+import models.{AbstractModelId, AbstractModel}
 import play.api.Logger
 import play.api.libs.json.Json
 
@@ -13,7 +13,7 @@ import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success, Try}
 
 
-trait S3Repo[R <: Record] extends UnstructuredDao[R] {
+trait S3Repo[M <: AbstractModel] extends UnstructuredDao[M] {
 
 
   val bucket: String
@@ -25,22 +25,22 @@ trait S3Repo[R <: Record] extends UnstructuredDao[R] {
   /**
     * Create a new record (simply call upsert)
     *
-    * @param record
+    * @param model
     * @return
     */
-  def create(record: R)(implicit ec: ExecutionContext): Future[Boolean] = upsert(record)
+  def create(model: M)(implicit ec: ExecutionContext): Future[Boolean] = upsert(model)
 
 
   /**
     * Upsert a record into the bucket.
     *
-    * @param record
+    * @param model
     * @return
     */
-  def upsert(record: R)(implicit ec: ExecutionContext): Future[Boolean] = {
+  def upsert(model: M)(implicit ec: ExecutionContext): Future[Boolean] = {
 
-    val key = record.id.toString
-    val json = record.toJson
+    val key = model.id.toString
+    val json = model.toJson
     val bytes = Json.toBytes(json)
     val stream = new ByteArrayInputStream(bytes)
 
@@ -56,7 +56,7 @@ trait S3Repo[R <: Record] extends UnstructuredDao[R] {
 
 
   /**
-    * Given a record id, delete that record from the bucket.
+    * Given a model id, delete that model from the bucket.
     *
     * @param id
     * @return
