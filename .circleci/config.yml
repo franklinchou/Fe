@@ -3,7 +3,7 @@ jobs:
   frontend-test:
     docker:
         - image: circleci/node:8.11-browsers
-    working_directory: ~/frontend
+    working_directory: ~/fe
     steps:
         - checkout
         # download & cache dependencies
