@@ -12,12 +12,12 @@ import scala.concurrent.{ExecutionContext, Future}
 class LoggingController @Inject()(cc: ControllerComponents)
                                  (implicit ec: ExecutionContext) extends AbstractController(cc) {
 
-  def index()(implicit request: Request[_]): Future[Seq[SessionModel]] = {
+  def index() = Action.async  { implicit request: Request[AnyContent] =>
     val userHeader = request.headers.get("user").getOrElse("")
     val user = Json.parse(userHeader).validate[String]
 
 
-    Future(Seq.empty[SessionModel])
+    Future { BadRequest }  // TODO Implement
   }
 
 }
