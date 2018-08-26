@@ -36,3 +36,4 @@ workflows:
     jobs:
       - scala-weights-test
       - frontend-test
+
