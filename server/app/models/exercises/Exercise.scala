@@ -7,9 +7,22 @@ object Exercise {
   /**
     * Json format
     */
-  implicit val jsWrites = new Writes[Exercise] {
-    override def writes(obj: Exercise): JsValue = {
-      Json.obj("exercise" -> obj.getClass.getSimpleName)
+  implicit object ExerciseMarshaller extends Writes[Exercise] {
+    def writes(ge: Exercise): JsValue = ge match {
+      case BenchPress => Json.toJson("BenchPress")
+      case DeadLift => Json.toJson("DeadLift")
+      case Squat => Json.toJson("Squat")
+    }
+  }
+
+  implicit object ExerciseUnmarshaller extends Reads[Exercise] {
+    override def reads(json: JsValue): JsResult[Exercise] = {
+      json.validate[String].getOrElse("") match {
+        case "BenchPress" => JsSuccess(BenchPress)
+        case "DeadLift" => JsSuccess(DeadLift)
+        case "Squat" => JsSuccess(Squat)
+        case "" => JsError("Invalid exercise found")
+      }
     }
   }
 }

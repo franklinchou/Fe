@@ -2,8 +2,8 @@ package models
 
 import ai.x.play.json.Jsonx
 import lib.containers.StringContainer
-import models.exercises.Exercise
-import play.api.libs.json.OFormat
+import models.exercises._
+import play.api.libs.json._
 
 
 object ExerciseModel {
@@ -17,8 +17,7 @@ object ExerciseModel {
 
 
 case class ExerciseModel(id: StringContainer[AbstractModelId],
-                         // exercise: Exercise,
-                         exercise: String,  // TODO Use Exercise model
+                         exercise: Exercise,
                          description: String,
                          variation: String,
                          weight: Double
