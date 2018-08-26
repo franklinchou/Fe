@@ -1,5 +1,24 @@
 version: 2
 jobs:
+  frontend-test:
+    docker:
+        - image: circleci/node:8.11-browsers
+    working_directory: ~/frontend
+    steps:
+        - checkout
+        # download & cache dependencies
+        - restore-cache:
+            keys:
+            - dependencies-{{ checksum "yarn.lock" }}
+            # fallback to using the latest cache if no match found
+            - dependencies-
+        - run: yarn install --pure-lockfile
+        - save_cache:
+            paths:
+              - node_modules
+            key: dependencies-{{ checksum "yarn.lock" }}
+        - run: yarn lint:js
+        - run: yarn
   scala-weights-test:
     docker:
         - image: hseeberger/scala-sbt:8u171_2.12.6_1.1.6
@@ -16,3 +35,4 @@ workflows:
   test_all:
     jobs:
       - scala-weights-test
+      - frontend-test
