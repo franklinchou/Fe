@@ -5,7 +5,7 @@
 
 # An example controller showing a sample home page
 GET        /health              controllers.HomeController.health
-GET        /logging/index       controllers.ReportingController.index
+GET        /logging/index       controllers.LoggingController.index
 
 # Map static resources from the /public folder to the /assets URL path
 GET        /assets/*file        controllers.Assets.versioned(path="/public", file: Asset)
