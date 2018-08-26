@@ -11,8 +11,8 @@ class ReportingControllerSpec extends PlaySpec with GuiceOneAppPerTest with Inje
   "A Reporting Controller" should {
 
     s"$UNAUTHORIZED if the user header is empty" in {
-      val request1 = FakeRequest("GET", "/logging")
-      val request2 = FakeRequest("GET", "/logging", NO_USER, "")
+      val request1 = FakeRequest(GET, "/logging")
+      val request2 = FakeRequest(GET, "/logging", NO_USER, "")
 
       val method1 = route(app, request1).get
       assert(status(method1) == UNAUTHORIZED)
@@ -22,6 +22,11 @@ class ReportingControllerSpec extends PlaySpec with GuiceOneAppPerTest with Inje
     }
 
     // Testing with proper user header
+    s"$OK if the proper user header is given" in {
+      val request = FakeRequest(GET, "/logging", TEST_USER, "")
+      val method = route(app, request).get
+      assert(status(method) == OK)
+    }
 
   }
 
