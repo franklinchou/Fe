@@ -2,7 +2,7 @@ package dao.mongo
 
 import dao.UnstructuredDao
 import lib.containers.StringContainer
-import models.{Record, AbstractModelId}
+import models.{AbstractModel, AbstractModelId}
 import play.api.Logger
 import play.api.libs.json.Json
 import play.modules.reactivemongo.ReactiveMongoApi
@@ -11,7 +11,8 @@ import reactivemongo.play.json.collection.JSONCollection
 
 import scala.concurrent.{ExecutionContext, Future}
 
-trait MongoRepo[R <: Record] extends UnstructuredDao[R] {
+trait MongoRepo[M <: AbstractModel] extends UnstructuredDao[M] {
+
 
   val rma: ReactiveMongoApi
 
@@ -23,7 +24,7 @@ trait MongoRepo[R <: Record] extends UnstructuredDao[R] {
 
 
   /**
-    * Name of the collection where records are stored
+    * Name of the collection where models are stored
     */
   val collectionName: String
 
@@ -34,33 +35,34 @@ trait MongoRepo[R <: Record] extends UnstructuredDao[R] {
 
 
   /**
-    * Insert a record into the collection
+    * Insert a model into the collection
     *
-    * @param record
+    * @param model
+    * @param ec
     * @return
     */
-  def create(record: R)(implicit ec: ExecutionContext): Future[Boolean] = {
-    Logger.info(s"Inserting record ${record.id.toString} into $collectionName")
+  def create(model: M)(implicit ec: ExecutionContext): Future[Boolean] = {
+    Logger.info(s"Inserting record ${model.id.toString} into $collectionName")
 
     collection
-      .flatMap(_.insert(record.toJson))
+      .flatMap(_.insert(model.toJson))
       .map(_.ok)
   }
 
 
   /**
-    * Upsert a record into the collection
+    * Upsert a model into the collection
     *
-    * @param record
+    * @param model
     * @param ec
     * @return
     */
-  def upsert(record: R)(implicit ec: ExecutionContext): Future[Boolean] = {
-    val id = record.id.toString
+  def upsert(model: M)(implicit ec: ExecutionContext): Future[Boolean] = {
+    val id = model.id.toString
     val selector = Json.obj("id" -> id)
-    val modifier = Json.obj("$set" -> record.toJson)
+    val modifier = Json.obj("$set" -> model.toJson)
 
-    Logger.info(s"Upserting record $id into $collectionName")
+    Logger.info(s"Upserting model $id into $collectionName")
 
     collection
       .flatMap(_.update(selector, modifier, upsert = true))
@@ -76,7 +78,7 @@ trait MongoRepo[R <: Record] extends UnstructuredDao[R] {
     * @return
     */
   def delete(modelId: StringContainer[AbstractModelId])(implicit ec: ExecutionContext): Future[Boolean] = {
-    Logger.info(s"Deleting record ${modelId.id} from $collectionName")
+    Logger.info(s"Deleting record ${modelId.value} from $collectionName")
     val selector = Json.obj("id" -> modelId.toString)
 
     collection

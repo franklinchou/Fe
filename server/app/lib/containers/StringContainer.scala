@@ -5,7 +5,6 @@ import play.api.libs.json._
 
 object StringContainer {
 
-
   /**
     * Format json
     *
@@ -14,14 +13,14 @@ object StringContainer {
     */
   implicit def jsFormat[A]: Format[StringContainer[A]] = Format(
     Reads.StringReads.map(StringContainer.apply[A]),
-    Writes.StringWrites.contramap(_.id)
+    Writes.StringWrites.contramap(_.value)
   )
 
 }
 
 
-final case class StringContainer[A](id: String) extends AnyVal {
+final case class StringContainer[A](value: String) extends AnyVal {
 
-  override def toString: String = id
+  override def toString: String = value
 
 }
