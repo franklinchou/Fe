@@ -3,7 +3,7 @@ package models
 import java.time.LocalDate
 
 import lib.containers.StringContainer
-import models.exercises.BenchPress
+import models.exercises.{BenchPress, DeadLift}
 import models.strength.SetModel
 import org.scalatest.FunSpec
 import play.api.libs.json.Json
@@ -16,8 +16,7 @@ object SessionModelSpec {
   val mockBenchPress =
     ExerciseModel(
       StringContainer.apply[AbstractModelId]("mock-exercise-1"),
-      "BenchPress", // TODO Use Exercise model
-      // BenchPress,
+      BenchPress,
       "",
       "Standard bench press",
       135.00
