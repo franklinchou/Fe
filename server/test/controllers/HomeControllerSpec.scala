@@ -9,7 +9,7 @@ class HomeControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecting
 
   "Home controller" should {
     "have a health endpoint" in {
-      val health = FakeRequest("GET", "/health")
+      val health = FakeRequest("GET", "/")
       val response = route(app, health).get
       assert(status(response) == 200)
     }

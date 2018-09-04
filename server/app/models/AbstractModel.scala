@@ -16,7 +16,7 @@ trait AbstractModel {
     *
     * @return
     */
-  def toJson: JsObject = Json.obj("id" -> id.toString)
+  def toJson: JsObject = Json.obj("id" -> id.toString)  // TODO This doesn't work.
 
 
 }
