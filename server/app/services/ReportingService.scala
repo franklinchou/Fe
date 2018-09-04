@@ -1,14 +1,13 @@
 package services
 
 import com.google.inject.Inject
-import dao.`abstract`.SessionRepo
-import lib.containers.StringContainer
-import models.{AbstractUserId, SessionModel}
+import dao.mongo.ExerciseSessionRepo
+import models.ExerciseSessionModel
 
 import scala.concurrent.{ExecutionContext, Future}
 
 
-class ReportingService @Inject()(sr: SessionRepo)
+class ReportingService @Inject()(exerciseSessionRepo: ExerciseSessionRepo)
                                 (implicit ec: ExecutionContext) {
 
 
@@ -18,6 +17,8 @@ class ReportingService @Inject()(sr: SessionRepo)
     * @param user
     * @return
     */
-  def findAll(user: StringContainer[AbstractUserId]): Future[List[SessionModel]] = sr.find(user)
+  def findAll(user: UserId): Future[List[ExerciseSessionModel]] = {
+    exerciseSessionRepo.find(user)
+  }
 
 }

@@ -9,7 +9,7 @@ import org.scalatest.FunSpec
 import play.api.libs.json.Json
 
 
-object SessionModelSpec {
+object ExerciseSessionModelSpec {
 
   val date = LocalDate.now
 
@@ -36,7 +36,7 @@ object SessionModelSpec {
       )
 
   val mockSession =
-    SessionModel(
+    ExerciseSessionModel(
       StringContainer.apply[AbstractModelId]("mock-session"),
       date,
       mockBenchWorkout
@@ -45,10 +45,10 @@ object SessionModelSpec {
 }
 
 
-import models.SessionModelSpec._
+import models.ExerciseSessionModelSpec._
 
 
-class SessionModelSpec extends FunSpec {
+class ExerciseSessionModelSpec extends FunSpec {
 
   describe("A work out session") {
 
