@@ -30,7 +30,6 @@ class ReportingController @Inject()(cc: ControllerComponents,
           Ok(json)
         }
     }
-
   }
 
 }
