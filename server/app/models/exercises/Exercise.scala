@@ -16,7 +16,7 @@ object Exercise {
   }
 
   implicit object ExerciseUnmarshaller extends Reads[Exercise] {
-    def reads(json: JsValue): JsResult[Exercise] = {
+    override def reads(json: JsValue): JsResult[Exercise] = {
       json.validate[String].getOrElse("") match {
         case "BenchPress" => JsSuccess(BenchPress)
         case "DeadLift" => JsSuccess(DeadLift)

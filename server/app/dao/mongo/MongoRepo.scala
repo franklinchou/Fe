@@ -43,9 +43,9 @@ trait MongoRepo[M <: AbstractModel] extends UnstructuredDao[M] {
     */
   def create(model: M)(implicit ec: ExecutionContext): Future[Boolean] = {
     Logger.info(s"Inserting record ${model.id.toString} into $collectionName")
-    val m = Json.toJsObject[M](model)
+
     collection
-      .flatMap(_.insert(m))
+      .flatMap(_.insert(model.toJson))
       .map(_.ok)
   }
 
@@ -60,7 +60,7 @@ trait MongoRepo[M <: AbstractModel] extends UnstructuredDao[M] {
   def upsert(model: M)(implicit ec: ExecutionContext): Future[Boolean] = {
     val id = model.id.toString
     val selector = Json.obj("id" -> id)
-    val modifier = Json.obj("$set" -> Json.toJsObject[M](model))
+    val modifier = Json.obj("$set" -> model.toJson)
 
     Logger.info(s"Upserting model $id into $collectionName")
 
