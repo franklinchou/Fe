@@ -1,7 +1,7 @@
 package models
 
 import lib.containers.StringContainer
-import play.api.libs.json.{JsObject, Json}
+import play.api.libs.json._
 
 trait AbstractModel {
 
@@ -10,13 +10,15 @@ trait AbstractModel {
     */
   val id: StringContainer[AbstractModelId]
 
+}
 
-  /**
-    * Coerce a generic record into a Json object
-    *
-    * @return
-    */
-  def toJson: JsObject = Json.obj("id" -> id.toString)
 
+object AbstractModel {
+
+  implicit object AbstractModelMarshaller extends Writes[AbstractModel] {
+    def writes(am: AbstractModel): JsObject = {
+      Json.obj("id" -> am.id.toString)
+    }
+  }
 
 }
