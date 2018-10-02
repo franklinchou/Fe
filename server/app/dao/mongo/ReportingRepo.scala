@@ -2,7 +2,7 @@ package dao.mongo
 
 import com.google.inject.Inject
 import lib.containers.StringContainer
-import models.{AbstractModel, AbstractModelId, ExerciseSessionModel}
+import models.{AbstractModel, AbstractModelId, SessionModel}
 import play.modules.reactivemongo.ReactiveMongoApi
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -10,7 +10,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 
 class ReportingRepo @Inject()(val rma: ReactiveMongoApi)
-                             (implicit ec: ExecutionContext) extends MongoRepo[ExerciseSessionModel] {
+                             (implicit ec: ExecutionContext) extends MongoRepo[SessionModel] {
 
   /**
     * Name of the collection where records are stored

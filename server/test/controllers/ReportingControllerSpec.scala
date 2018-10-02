@@ -7,7 +7,7 @@ import play.api.test.Helpers._
 import play.api.test._
 import controllers.Headers._
 import lib.containers.StringContainer
-import models.{AbstractUserId, ExerciseSessionModel}
+import models.{AbstractUserId, SessionModel}
 import org.scalatest.mockito.MockitoSugar
 import services.ReportingService
 import org.mockito.Mockito.when
@@ -52,7 +52,7 @@ class ReportingControllerSpec
 
       val user = TEST_USER.get("user").getOrElse("")
       val u = StringContainer.apply[AbstractUserId](user)
-      when(rs.findAll(u)).thenReturn(Future {List.empty[ExerciseSessionModel]} )
+      when(rs.findAll(u)).thenReturn(Future {List.empty[SessionModel]} )
 
       val method = mockReportingController.index()(request)
       assert(status(method) == OK)
