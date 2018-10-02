@@ -1,5 +1,6 @@
-package models
+package marshall.models
 
+import models.AbstractUserId
 import org.scalatest.FunSpec
 import play.api.libs.json.Json
 

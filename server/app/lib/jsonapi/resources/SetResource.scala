@@ -1,19 +1,20 @@
 package lib.jsonapi.resources
 
 import lib.jsonapi.DataResource
-import models.SessionModel
+import models.strength.SetModel
 import play.api.libs.json.{JsObject, Json}
 
-case class SessionResource(sessionModel: SessionModel) extends DataResource {
+case class SetResource(setModel: SetModel) extends DataResource {
 
-  lazy val `type`: String = "exercise-session"
+  lazy val `type`: String = "set"
 
-  lazy val id: String = sessionModel.id.value
+  lazy val id: String = setModel.id.value
 
   lazy val attributes: Option[JsObject] = {
     val json =
       Json.obj(
-        "date" -> sessionModel.date.toString
+        "multiplier" -> setModel.multiplier,
+        "exercise" -> setModel.exercise.exercise.toString
       )
     Some(json)
   }
