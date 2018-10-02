@@ -1,4 +1,4 @@
-package jsonapi.resources
+package lib.jsonapi.resources
 
 import jsonapi.DataResource
 import models.SessionModel

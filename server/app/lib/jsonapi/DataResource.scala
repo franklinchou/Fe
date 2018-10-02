@@ -1,4 +1,4 @@
-package jsonapi
+package lib.jsonapi
 
 import play.api.libs.json.{JsObject, Json}
 
