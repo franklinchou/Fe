@@ -7,7 +7,7 @@ import models.{AbstractModelId, ExerciseModel, SessionModel}
 
 package object marshall {
 
-  val date = LocalDate.now
+  val date: LocalDate = LocalDate.now
 
   val mockBenchPress =
     ExerciseModel(
@@ -20,7 +20,7 @@ package object marshall {
 
 
   // 5 x 5 bench press workout
-  val mockBenchWorkout =
+  val mockBenchWorkout: List[SetModel] =
     (0 to 5)
       .toList
       .map(sc =>
