@@ -1,6 +1,6 @@
 package lib.jsonapi.resources
 
-import jsonapi.DataResource
+import lib.jsonapi.DataResource
 import models.ExerciseModel
 import play.api.libs.json.{JsObject, Json}
 
