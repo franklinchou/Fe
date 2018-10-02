@@ -1,6 +1,5 @@
 package lib.jsonapi
 
-import jsonapi.Resource
 import play.api.libs.json.{JsObject, Json}
 
 trait DataIdentifierResource extends Resource {
