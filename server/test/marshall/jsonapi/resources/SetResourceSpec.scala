@@ -18,10 +18,32 @@ class SetResourceSpec extends FunSpec {
     )
   )
 
+  val expected =
+    """
+      |{
+      |  "data" : {
+      |    "type" : "set",
+      |    "id" : "mock-bench-set-1",
+      |    "attributes" : {
+      |      "multiplier" : 5,
+      |      "exercise" : "bench-press",
+      |      "description" : "",
+      |      "variation" : "Standard bench press",
+      |      "weight" : 135
+      |    },
+      |    "relationships" : {
+      |      "exercise" : {
+      |        "data" : {
+      |          "type" : "bench-press",
+      |          "id" : "mock-exercise-1"
+      |        }
+      |      }
+      |    }
+      |  }
+      |}
+    """.stripMargin
 
-  println(
-    Json.prettyPrint(resource.toJsonApi)
-  )
+  assert(Json.parse(expected) == resource.toJsonApi)
 
 
 }
