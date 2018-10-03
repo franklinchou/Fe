@@ -14,6 +14,7 @@ trait DataResource extends DataIdResource {
 
   val links: Option[JsObject]
 
+  // TODO DRY
   private lazy val includable = {
     Map(
       "attributes" -> attributes,

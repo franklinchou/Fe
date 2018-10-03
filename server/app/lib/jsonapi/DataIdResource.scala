@@ -18,7 +18,7 @@ trait DataIdResource extends Resource {
 
   val toJsonApi: JsObject =
     Json.obj(
-      s"$topLevelTag" ->
+      topLevelTag ->
         Json.obj(
           "type" -> `type`,
           "id" -> id

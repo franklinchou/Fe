@@ -19,6 +19,8 @@ trait CompoundDataResource extends DataResource {
       Json.obj("count" -> included.size)
     )
 
+
+  // TODO DRY
   private lazy val includable = {
     Map(
       "attributes" -> attributes,
