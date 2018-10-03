@@ -11,15 +11,24 @@ case class SetResource(setModel: SetModel) extends DataResource {
   lazy val id: String = setModel.id.value
 
   lazy val attributes: Option[JsObject] = {
+
+    val em = setModel.exercise
+
     val json =
       Json.obj(
         "multiplier" -> setModel.multiplier,
-        "exercise" -> setModel.exercise.exercise.toString
+        "exercise" -> em.exercise,
+        "description" -> em.description,
+        "variation" -> em.variation,
+        "weight" -> em.weight
       )
     Some(json)
   }
 
-  lazy val relationships: Option[JsObject] = None
+  lazy val relationships: Option[JsObject] = {
+    val json = ExerciseRelationshipResource.apply(setModel.exercise).toJsonApi
+    Some(json)
+  }
 
   lazy val links: Option[JsObject] = None
 
