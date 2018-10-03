@@ -18,5 +18,4 @@ trait DataIdentifierResource extends Resource {
           "id" -> id
         )
     )
-
 }
