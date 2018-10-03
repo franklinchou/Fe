@@ -1,6 +1,6 @@
 package lib.jsonapi
 
-import play.api.libs.json.{JsObject, Json}
+import play.api.libs.json.{JsObject, JsValue, Json}
 
 trait DataResource extends DataIdResource {
 
@@ -14,28 +14,18 @@ trait DataResource extends DataIdResource {
 
   val links: Option[JsObject]
 
-  // TODO DRY
-  private lazy val includable = {
+  protected lazy val affiliates: Map[String, Option[JsObject]] =
     Map(
       "attributes" -> attributes,
       "relationships" -> relationships,
       "links" -> links,
       "meta" -> meta
-    ).filter(_._2.isDefined)
-  }
+    )
+
+  protected val base = Json.obj("type" -> `type`, "id" -> id)
 
   override val toJsonApi: JsObject = {
-    val base =
-      Json.obj(
-        "type" -> `type`,
-        "id" -> id
-      )
-    val inner = {
-      includable.foldLeft(base) { (acc, pair) =>
-        acc + (pair._1 -> pair._2.get)
-      }
-    }
-    Json.obj(topLevelTag -> inner)
+    Json.obj(topLevelTag -> reduce(affiliates, base))
   }
 
 }
