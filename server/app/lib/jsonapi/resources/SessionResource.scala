@@ -1,10 +1,10 @@
 package lib.jsonapi.resources
 
-import lib.jsonapi.DataResource
+import lib.jsonapi.CompoundDataResource
 import models.SessionModel
 import play.api.libs.json.{JsObject, Json}
 
-case class SessionResource(sessionModel: SessionModel) extends DataResource {
+case class SessionResource(sessionModel: SessionModel) extends CompoundDataResource {
 
   lazy val `type`: String = "exercise-session"
 
@@ -22,6 +22,10 @@ case class SessionResource(sessionModel: SessionModel) extends DataResource {
 
   lazy val links: Option[JsObject] = None
 
-  lazy val meta: Option[JsObject] = None
+  lazy val included: List[JsObject] =
+    sessionModel
+      .sets
+      .map(s => Resource2IncludedResource(SetResource.apply(s)))
+      .map(sr => sr.toJsonApi)
 
 }

@@ -2,17 +2,22 @@ package lib.jsonapi
 
 import play.api.libs.json.{JsObject, Json}
 
-trait DataResource extends DataIdResource {
+/**
+  * Corresponds to Compound Documents
+  * http://jsonapi.org/format/#document-compound-documents
+  */
+trait CompoundDataResource extends DataResource {
 
-  val `type`: String
+  /**
+    * In a compound document, all included resources MUST be represented as an
+    * array of resource objects in a top-level included member.
+    */
+  val included: List[JsObject]
 
-  val id: String
-
-  val attributes: Option[JsObject]
-
-  val relationships: Option[JsObject]
-
-  val links: Option[JsObject]
+  lazy val meta: Option[JsObject] =
+    Some(
+      Json.obj("count" -> included.size)
+    )
 
   private lazy val includable = {
     Map(
@@ -34,7 +39,11 @@ trait DataResource extends DataIdResource {
         acc + (pair._1 -> pair._2.get)
       }
     }
-    Json.obj(s"$topLevelTag" -> inner)
+
+    Json.obj(
+      "data" -> inner,
+      "included" -> included
+    )
   }
 
 }

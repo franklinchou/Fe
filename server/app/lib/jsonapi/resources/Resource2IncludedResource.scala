@@ -1,19 +1,23 @@
-package lib.jsonapi
+package lib.jsonapi.resources
 
+import lib.jsonapi.DataResource
 import play.api.libs.json.{JsObject, Json}
 
-trait DataResource extends DataIdResource {
+case class Resource2IncludedResource(dr: DataResource) extends DataResource {
 
-  val `type`: String
+  lazy val `type`: String = dr.`type`
 
-  val id: String
+  lazy val id: String = dr.id
 
-  val attributes: Option[JsObject]
+  lazy val attributes: Option[JsObject] = dr.attributes
 
-  val relationships: Option[JsObject]
+  lazy val relationships: Option[JsObject] = dr.relationships
 
-  val links: Option[JsObject]
+  lazy val links: Option[JsObject] = dr.links
 
+  lazy val meta: Option[JsObject] = dr.meta
+
+  // TODO DRY
   private lazy val includable = {
     Map(
       "attributes" -> attributes,
@@ -34,7 +38,8 @@ trait DataResource extends DataIdResource {
         acc + (pair._1 -> pair._2.get)
       }
     }
-    Json.obj(s"$topLevelTag" -> inner)
+    inner
   }
+
 
 }

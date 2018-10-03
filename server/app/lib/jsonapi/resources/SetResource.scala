@@ -1,6 +1,6 @@
 package lib.jsonapi.resources
 
-import lib.jsonapi.DataResource
+import lib.jsonapi.{DataResource, ExerciseJsonApi}
 import models.strength.SetModel
 import play.api.libs.json.{JsObject, Json}
 
@@ -17,7 +17,7 @@ case class SetResource(setModel: SetModel) extends DataResource {
     val json =
       Json.obj(
         "multiplier" -> setModel.multiplier,
-        "exercise" -> em.exercise,
+        "exercise" -> ExerciseJsonApi(em.exercise),
         "description" -> em.description,
         "variation" -> em.variation,
         "weight" -> em.weight
