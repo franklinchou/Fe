@@ -18,7 +18,7 @@ class SetResourceSpec extends FunSpec {
     )
   )
 
-  val expected =
+  val expected: String =
     """
       |{
       |  "data" : {
@@ -43,6 +43,11 @@ class SetResourceSpec extends FunSpec {
       |}
     """.stripMargin
 
-  assert(Json.parse(expected) == resource.toJsonApi)
+  describe("Set model") {
+    it("should marshall to JsonApi") {
+
+      assert(resource.toJsonApi == Json.parse(expected))
+    }
+  }
 
 }
