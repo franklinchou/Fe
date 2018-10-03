@@ -11,7 +11,7 @@ import reactivemongo.play.json._
 import scala.concurrent.{ExecutionContext, Future}
 
 class ExerciseSessionRepo @Inject()(val rma: ReactiveMongoApi)
-                                   (implicit ec: ExecutionContext) extends MongoRepo[ExerciseSessionModel] {
+                                   (implicit ec: ExecutionContext) extends MongoRepo[SessionModel] {
 
 
   /**
@@ -20,18 +20,18 @@ class ExerciseSessionRepo @Inject()(val rma: ReactiveMongoApi)
   val collectionName: String = "exercise"
 
   /**
-    * Find a list of [[ExerciseSessionModel]]s given a user id
+    * Find a list of [[SessionModel]]s given a user id
     *
     * @param user
     * @return
     */
-  def find(user: StringContainer[AbstractUserId]): Future[List[ExerciseSessionModel]] = {
+  def find(user: StringContainer[AbstractUserId]): Future[List[SessionModel]] = {
 
     val query: JsObject = Json.obj("user" -> user.value)
 
     collection
-      .map(_.find(query).cursor[ExerciseSessionModel](ReadPreference.primary))
-      .flatMap(_.collect[List](-1, Cursor.FailOnError[List[ExerciseSessionModel]]()))
+      .map(_.find(query).cursor[SessionModel](ReadPreference.primary))
+      .flatMap(_.collect[List](-1, Cursor.FailOnError[List[SessionModel]]()))
   }
 
   /**

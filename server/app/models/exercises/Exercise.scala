@@ -27,6 +27,4 @@ object Exercise {
   }
 }
 
-
-
 trait Exercise

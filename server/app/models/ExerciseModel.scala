@@ -5,7 +5,6 @@ import lib.containers.StringContainer
 import models.exercises._
 import play.api.libs.json._
 
-
 object ExerciseModel {
 
   /**
@@ -14,7 +13,6 @@ object ExerciseModel {
   implicit lazy val jsFormat: OFormat[ExerciseModel] = Jsonx.formatCaseClass[ExerciseModel]
 
 }
-
 
 case class ExerciseModel(id: StringContainer[AbstractModelId],
                          exercise: Exercise,
