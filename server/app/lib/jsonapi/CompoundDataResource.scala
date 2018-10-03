@@ -14,36 +14,11 @@ trait CompoundDataResource extends DataResource {
     */
   val included: List[JsObject]
 
-  lazy val meta: Option[JsObject] =
-    Some(
-      Json.obj("count" -> included.size)
-    )
-
-
-  // TODO DRY
-  private lazy val includable = {
-    Map(
-      "attributes" -> attributes,
-      "relationships" -> relationships,
-      "links" -> links,
-      "meta" -> meta
-    ).filter(_._2.isDefined)
-  }
+  lazy val meta: Option[JsObject] = Some(Json.obj("count" -> included.size))
 
   override val toJsonApi: JsObject = {
-    val base =
-      Json.obj(
-        "type" -> `type`,
-        "id" -> id
-      )
-    val inner = {
-      includable.foldLeft(base) { (acc, pair) =>
-        acc + (pair._1 -> pair._2.get)
-      }
-    }
-
     Json.obj(
-      "data" -> inner,
+      "data" -> reduce(affiliates, base),
       "included" -> included
     )
   }

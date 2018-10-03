@@ -1,6 +1,6 @@
 package lib.jsonapi.resources
 
-import lib.jsonapi.CompoundDataResource
+import lib.jsonapi.{CompoundDataResource, Resource2IncludedResource}
 import models.SessionModel
 import play.api.libs.json.{JsObject, Json}
 
