@@ -45,5 +45,4 @@ class SetResourceSpec extends FunSpec {
 
   assert(Json.parse(expected) == resource.toJsonApi)
 
-
 }
