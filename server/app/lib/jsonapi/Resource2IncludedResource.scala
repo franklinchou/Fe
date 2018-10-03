@@ -1,6 +1,5 @@
-package lib.jsonapi.resources
+package lib.jsonapi
 
-import lib.jsonapi.DataResource
 import play.api.libs.json.{JsObject, Json}
 
 case class Resource2IncludedResource(dr: DataResource) extends DataResource {

@@ -35,7 +35,7 @@ trait DataResource extends DataIdResource {
         acc + (pair._1 -> pair._2.get)
       }
     }
-    Json.obj(s"$topLevelTag" -> inner)
+    Json.obj(topLevelTag -> inner)
   }
 
 }
