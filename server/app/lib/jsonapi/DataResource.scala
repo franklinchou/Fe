@@ -14,8 +14,6 @@ trait DataResource extends DataIdentifierResource {
 
   val links: Option[JsObject]
 
-  val meta: Option[JsObject]
-
   private lazy val includable = {
     Map(
       "attributes" -> attributes,
