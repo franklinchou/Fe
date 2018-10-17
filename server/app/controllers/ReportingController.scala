@@ -38,7 +38,7 @@ class ReportingController @Inject()(cc: ControllerComponents,
       val body = request.body
       body.validate[SessionModel]
 
-      Ok()
+      Ok
     }
   }
 

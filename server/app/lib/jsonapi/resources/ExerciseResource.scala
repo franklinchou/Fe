@@ -28,7 +28,7 @@ object ExerciseResource {
           d <- description
           v <- variation
           w <- weight
-          if `type` == ExerciseResource.`type`
+          if `type` == this.`type`
         } yield {
           idOpt
             .map { id =>

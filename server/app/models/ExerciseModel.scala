@@ -16,7 +16,7 @@ object ExerciseModel {
 
 
   /**
-    * Create an exercise model.
+    * Create an [[ExerciseModel]]
     *
     * Note that in a /POST method, the call should not include an id. The backend will
     * generate an id and return the id (via jsonapi) in the response.
