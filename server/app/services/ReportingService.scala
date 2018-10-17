@@ -1,7 +1,7 @@
 package services
 
 import com.google.inject.Inject
-import dao.mongo.ExerciseSessionRepo
+import dao.mongo.{ExerciseSessionRepo, MongoRepo}
 import models.SessionModel
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -13,6 +13,8 @@ class ReportingService @Inject()(exerciseSessionRepo: ExerciseSessionRepo)
 
   /**
     * Find all the exercise sessions associated with a given user.
+    *
+    * NOTE: This service inherits [[Future]] from ReactiveMongoApi see [[MongoRepo]]
     *
     * @param user
     * @return
