@@ -4,6 +4,13 @@ import lib.jsonapi.{DataResource, ExerciseJsonApi}
 import models.strength.SetModel
 import play.api.libs.json.{JsObject, Json}
 
+
+object SetResource {
+
+  
+
+}
+
 case class SetResource(setModel: SetModel) extends DataResource {
 
   lazy val `type`: String = "set"

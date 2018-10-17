@@ -2,7 +2,7 @@ package controllers
 
 import com.google.inject.{Inject, Singleton}
 import lib.containers.StringContainer
-import models.AbstractUserId
+import models.{AbstractUserId, SessionModel}
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
 import services.ReportingService
@@ -36,7 +36,9 @@ class ReportingController @Inject()(cc: ControllerComponents,
   def create() = Action(parse.tolerantJson) {
     implicit request: Request[JsValue] => {
       val body = request.body
-      
+      body.validate[SessionModel]
+
+      Ok()
     }
   }
 

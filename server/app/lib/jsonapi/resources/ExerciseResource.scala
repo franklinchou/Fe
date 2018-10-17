@@ -4,6 +4,11 @@ import lib.jsonapi.DataResource
 import models.ExerciseModel
 import play.api.libs.json.{JsObject, Json}
 
+object ExerciseResource {
+
+
+}
+
 case class ExerciseResource(exerciseModel: ExerciseModel) extends DataResource {
 
   lazy val `type`: String = "exercise"

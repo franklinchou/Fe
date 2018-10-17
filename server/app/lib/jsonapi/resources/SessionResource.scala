@@ -4,6 +4,14 @@ import lib.jsonapi.{CompoundDataResource, Resource2IncludedResource}
 import models.SessionModel
 import play.api.libs.json.{JsObject, Json}
 
+object SessionResource {
+
+
+
+}
+
+
+
 case class SessionResource(sessionModel: SessionModel) extends CompoundDataResource {
 
   lazy val `type`: String = "exercise-session"
