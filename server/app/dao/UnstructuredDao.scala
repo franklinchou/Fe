@@ -18,7 +18,7 @@ trait UnstructuredDao[R <: AbstractModel] {
     * @param record
     * @return
     */
-  def create(record: AbstractModel): Future[Boolean]
+  def insert(record: R): Future[Boolean]
 
 
   /**

@@ -6,6 +6,7 @@ import models.{AbstractModel, AbstractModelId}
 import play.api.Logger
 import play.api.libs.json.Json
 import play.modules.reactivemongo.ReactiveMongoApi
+import reactivemongo.api.DefaultDB
 import reactivemongo.play.json._
 import reactivemongo.play.json.collection.JSONCollection
 
@@ -20,7 +21,7 @@ trait MongoRepo[M <: AbstractModel] extends UnstructuredDao[M] {
   /**
     * Database
     */
-  val db = rma.database
+  val db: Future[DefaultDB] = rma.database
 
 
   /**
@@ -34,6 +35,25 @@ trait MongoRepo[M <: AbstractModel] extends UnstructuredDao[M] {
   }
 
 
+  private def insert(model: M, upsert: Boolean) = {
+    val id = model.id.toString
+    val selector = Json.obj("id" -> id)
+    val modifier = Json.obj("$set" -> Json.toJson[M](model))
+
+    val message =
+      if (upsert) {
+        s"Upserting model $id into $collectionName"
+      } else {
+        s"Inserting model $id into $collectionName"
+      }
+
+    Logger.info(message)
+    collection
+      .flatMap(_.update(selector, modifier, upsert = upsert))
+      .map(_.ok)
+  }
+
+
   /**
     * Insert a model into the collection
     *
@@ -41,13 +61,7 @@ trait MongoRepo[M <: AbstractModel] extends UnstructuredDao[M] {
     * @param ec
     * @return
     */
-  def create(model: M)(implicit ec: ExecutionContext): Future[Boolean] = {
-    Logger.info(s"Inserting record ${model.id.toString} into $collectionName")
-
-    collection
-      .flatMap(_.insert(model.toJson))
-      .map(_.ok)
-  }
+  def insert(model: M)(implicit ec: ExecutionContext): Future[Boolean] = insert(model, upsert = false)
 
 
   /**
@@ -57,17 +71,7 @@ trait MongoRepo[M <: AbstractModel] extends UnstructuredDao[M] {
     * @param ec
     * @return
     */
-  def upsert(model: M)(implicit ec: ExecutionContext): Future[Boolean] = {
-    val id = model.id.toString
-    val selector = Json.obj("id" -> id)
-    val modifier = Json.obj("$set" -> model.toJson)
-
-    Logger.info(s"Upserting model $id into $collectionName")
-
-    collection
-      .flatMap(_.update(selector, modifier, upsert = true))
-      .map(_.ok)
-  }
+  def upsert(model: M)(implicit ec: ExecutionContext): Future[Boolean] = insert(model, upsert = true)
 
 
   /**

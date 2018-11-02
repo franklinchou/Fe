@@ -35,14 +35,6 @@ class SessionRepo @Inject()(val rma: ReactiveMongoApi)
   }
 
   /**
-    * Insert a record into the database.
-    *
-    * @param record
-    * @return
-    */
-  def create(record: AbstractModel): Future[Boolean] = ???
-
-  /**
     * Upsert a record into the database.
     *
     * @param record
