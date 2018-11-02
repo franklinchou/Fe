@@ -1,6 +1,6 @@
 package marshall.jsonapi.resources
 
-import lib.jsonapi.resources.ExerciseResource
+import resources.ExerciseResource
 import models.ExerciseModel
 import org.scalatest.FunSpec
 import play.api.libs.json.Json

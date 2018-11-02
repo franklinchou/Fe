@@ -1,7 +1,7 @@
 package marshall.jsonapi.resources
 
 import lib.containers.StringContainer
-import lib.jsonapi.resources.SetResource
+import resources.SetResource
 import marshall.mockBenchPress
 import models.AbstractModelId
 import models.strength.SetModel

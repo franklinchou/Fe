@@ -1,4 +1,4 @@
-package lib.jsonapi.resources
+package resources
 
 import lib.jsonapi.{ExerciseJsonApi, RelationshipResource}
 import models.ExerciseModel

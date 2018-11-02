@@ -1,4 +1,4 @@
-package lib.jsonapi.resources
+package resources
 
 import java.time.LocalDate
 

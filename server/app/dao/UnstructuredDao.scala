@@ -1,6 +1,5 @@
 package dao
 
-
 import lib.containers.StringContainer
 import models.{AbstractModelId, AbstractModel}
 

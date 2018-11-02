@@ -10,8 +10,8 @@ import reactivemongo.play.json._
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class ExerciseSessionRepo @Inject()(val rma: ReactiveMongoApi)
-                                   (implicit ec: ExecutionContext) extends MongoRepo[SessionModel] {
+class SessionRepo @Inject()(val rma: ReactiveMongoApi)
+                           (implicit ec: ExecutionContext) extends MongoRepo[SessionModel] {
 
 
   /**
