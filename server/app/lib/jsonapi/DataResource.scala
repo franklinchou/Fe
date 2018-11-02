@@ -1,6 +1,6 @@
 package lib.jsonapi
 
-import play.api.libs.json.{JsObject, JsValue, Json}
+import play.api.libs.json.{JsObject, Json}
 
 trait DataResource extends DataIdResource {
 
