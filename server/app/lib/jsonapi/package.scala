@@ -4,7 +4,6 @@ import play.api.libs.json.JsObject
 
 package object jsonapi {
 
-
   /**
     * Take a list of `Option[JsObject]` bound to a resource and produce
     * JsObject with only the populated fields appended to a given `default`

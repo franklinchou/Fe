@@ -34,8 +34,8 @@ class SetResourceSpec extends FunSpec {
       |    "relationships" : {
       |      "exercise" : {
       |        "data" : {
-      |          "type" : "bench-press",
-      |          "id" : "mock-exercise-1"
+      |          "id" : "mock-exercise-1",
+      |          "type" : "bench-press"
       |        }
       |      }
       |    }
@@ -45,7 +45,6 @@ class SetResourceSpec extends FunSpec {
 
   describe("Set model") {
     it("should marshall to JsonApi") {
-
       assert(resource.toJsonApi == Json.parse(expected))
     }
   }

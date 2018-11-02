@@ -9,18 +9,18 @@ object Exercise {
     */
   implicit object ExerciseMarshaller extends Writes[Exercise] {
     def writes(ge: Exercise): JsValue = ge match {
-      case BenchPress => Json.toJson("BenchPress")
-      case DeadLift => Json.toJson("DeadLift")
-      case Squat => Json.toJson("Squat")
+      case BenchPress => Json.toJson("bench-press")
+      case DeadLift => Json.toJson("dead-lift")
+      case Squat => Json.toJson("squat")
     }
   }
 
   implicit object ExerciseUnmarshaller extends Reads[Exercise] {
     override def reads(json: JsValue): JsResult[Exercise] = {
       json.validate[String].getOrElse("") match {
-        case "BenchPress" => JsSuccess(BenchPress)
-        case "DeadLift" => JsSuccess(DeadLift)
-        case "Squat" => JsSuccess(Squat)
+        case "bench-press" => JsSuccess(BenchPress)
+        case "dead-lift" => JsSuccess(DeadLift)
+        case "squat" => JsSuccess(Squat)
         case "" => JsError("Invalid exercise found")
       }
     }

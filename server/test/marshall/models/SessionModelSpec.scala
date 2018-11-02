@@ -22,7 +22,7 @@ class SessionModelSpec extends FunSpec {
            |    "multiplier" : 5,
            |    "exercise" : {
            |      "id" : "mock-exercise-1",
-           |      "exercise" : "BenchPress",
+           |      "exercise" : "bench-press",
            |      "description" : "",
            |      "variation" : "Standard bench press",
            |      "weight" : 135
@@ -32,7 +32,7 @@ class SessionModelSpec extends FunSpec {
            |    "multiplier" : 5,
            |    "exercise" : {
            |      "id" : "mock-exercise-1",
-           |      "exercise" : "BenchPress",
+           |      "exercise" : "bench-press",
            |      "description" : "",
            |      "variation" : "Standard bench press",
            |      "weight" : 135
@@ -42,7 +42,7 @@ class SessionModelSpec extends FunSpec {
            |    "multiplier" : 5,
            |    "exercise" : {
            |      "id" : "mock-exercise-1",
-           |      "exercise" : "BenchPress",
+           |      "exercise" : "bench-press",
            |      "description" : "",
            |      "variation" : "Standard bench press",
            |      "weight" : 135
@@ -52,7 +52,7 @@ class SessionModelSpec extends FunSpec {
            |    "multiplier" : 5,
            |    "exercise" : {
            |      "id" : "mock-exercise-1",
-           |      "exercise" : "BenchPress",
+           |      "exercise" : "bench-press",
            |      "description" : "",
            |      "variation" : "Standard bench press",
            |      "weight" : 135
@@ -62,7 +62,7 @@ class SessionModelSpec extends FunSpec {
            |    "multiplier" : 5,
            |    "exercise" : {
            |      "id" : "mock-exercise-1",
-           |      "exercise" : "BenchPress",
+           |      "exercise" : "bench-press",
            |      "description" : "",
            |      "variation" : "Standard bench press",
            |      "weight" : 135
@@ -72,7 +72,7 @@ class SessionModelSpec extends FunSpec {
            |    "multiplier" : 5,
            |    "exercise" : {
            |      "id" : "mock-exercise-1",
-           |      "exercise" : "BenchPress",
+           |      "exercise" : "bench-press",
            |      "description" : "",
            |      "variation" : "Standard bench press",
            |      "weight" : 135

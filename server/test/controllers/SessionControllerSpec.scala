@@ -1,22 +1,19 @@
 package controllers
 
-import akka.stream.ActorMaterializer
+import controllers.Headers._
+import lib.containers.StringContainer
+import models.{AbstractUserId, SessionModel}
+import org.mockito.Mockito.when
+import org.scalatest.mockito.MockitoSugar
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerTest
 import play.api.test.Helpers._
 import play.api.test._
-import controllers.Headers._
-import lib.containers.StringContainer
-import models.{AbstractUserId, SessionModel}
-import org.scalatest.mockito.MockitoSugar
 import services.ReportingService
-import org.mockito.Mockito.when
-import play.api.libs.json.Json
-import play.api.mvc.AnyContent
 
 import scala.concurrent.Future
 
-class ReportingControllerSpec
+class SessionControllerSpec
   extends PlaySpec with MockitoSugar with GuiceOneAppPerTest with Injecting {
 
   import scala.concurrent.ExecutionContext.Implicits.global
@@ -24,8 +21,8 @@ class ReportingControllerSpec
   "A Reporting Controller" should {
 
     s"$UNAUTHORIZED if the user header is empty" in {
-      val request1 = FakeRequest(GET, "/logging")
-      val request2 = FakeRequest(GET, "/logging", NO_USER, "")
+      val request1 = FakeRequest(GET, "/sessions")
+      val request2 = FakeRequest(GET, "/sessions", NO_USER, "")
 
       val method1 = route(app, request1).get
       assert(status(method1) == UNAUTHORIZED)
@@ -44,17 +41,17 @@ class ReportingControllerSpec
         * "could not find implicit value for parameter mat: akka.stream.Materializer"
         */
       val request =
-        FakeRequest(GET, "/logging")
+        FakeRequest(GET, "/sessions")
           .withHeaders(TEST_USER)
 
       val rs = mock[ReportingService]
-      val mockReportingController = new ReportingController(stubControllerComponents(), rs)
+      val mockSessionController = new SessionController(stubControllerComponents(), rs)
 
       val user = TEST_USER.get("user").getOrElse("")
       val u = StringContainer.apply[AbstractUserId](user)
       when(rs.findAll(u)).thenReturn(Future {List.empty[SessionModel]} )
 
-      val method = mockReportingController.index()(request)
+      val method = mockSessionController.index()(request)
       assert(status(method) == OK)
     }
 
