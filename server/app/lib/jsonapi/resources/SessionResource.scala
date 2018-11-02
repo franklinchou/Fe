@@ -24,7 +24,7 @@ object SessionResource {
         .validate[List[SetResource]]
         .fold(
           _ => List.empty[SetModel],
-          success => success.map(_.setModel)
+          success => success.map(_.model)
         )
 
     if (isCorrectType) {

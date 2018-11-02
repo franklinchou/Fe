@@ -11,9 +11,9 @@ import scala.concurrent.{ExecutionContext, Future}
 
 
 @Singleton
-class ReportingController @Inject()(cc: ControllerComponents,
-                                    rs: ReportingService)
-                                   (implicit ec: ExecutionContext) extends AbstractController(cc) {
+class SessionController @Inject()(cc: ControllerComponents,
+                                  rs: ReportingService)
+                                 (implicit ec: ExecutionContext) extends AbstractController(cc) {
 
   def index() = Action.async  { implicit request: Request[AnyContent] =>
     val user = request.headers.get("user").getOrElse("")
