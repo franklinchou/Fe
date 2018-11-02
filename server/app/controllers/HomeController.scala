@@ -20,7 +20,7 @@ class HomeController @Inject()(cc: ControllerComponents,
       Json.obj(
         "application" -> "Fe",
         "description" -> "Weight lifting tracker app",
-        "environment" -> config.get[String]("env"),
+        "environment" -> config.get[String]("app.env"),
         "mongo" -> mongo
       )
 

@@ -10,7 +10,7 @@ import play.api.libs.json.Json
 class SessionResourceSpec extends FunSpec {
 
   val resource = SessionResource.apply(mockSession)
-
+  
   val expected: String =
     s"""
        |{
