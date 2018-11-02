@@ -8,6 +8,10 @@ import models.strength.SetModel
 import models.{ExerciseModel, SessionModel}
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.modules.reactivemongo.ReactiveMongoApi
+import resources.SessionResource
+
+import scala.concurrent.Await
+import scala.concurrent.duration.Duration
 
 object LoadTestData extends App {
 
@@ -41,7 +45,12 @@ object LoadTestData extends App {
       List(mockSetModel)
     )
 
-  sessionRepo.insert(mockSessionModel)
+  val json = SessionResource(mockSessionModel)
+
+  Await.result(
+    sessionRepo.insert(json),
+    Duration.Inf
+  )
 
   application.stop()
 

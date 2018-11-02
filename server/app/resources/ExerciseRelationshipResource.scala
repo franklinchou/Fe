@@ -1,6 +1,6 @@
 package resources
 
-import lib.jsonapi.{ExerciseJsonApi, RelationshipResource}
+import lib.jsonapi.RelationshipResource
 import models.ExerciseModel
 import play.api.libs.json.{JsObject, Json}
 
@@ -11,11 +11,13 @@ import play.api.libs.json.{JsObject, Json}
   */
 case class ExerciseRelationshipResource(model: ExerciseModel) extends RelationshipResource {
 
+  lazy val id: String = model.id.toString
+
   lazy val topLevelTag: String = "exercise"
 
   lazy val data: JsObject =
     Json.obj(
       "id" -> model.id,
-      "type" -> ExerciseJsonApi(model.exercise)
+      "type" -> model.exercise
     )
 }

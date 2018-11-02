@@ -54,4 +54,4 @@ case class ExerciseModel(id: StringContainer[AbstractModelId],
                          description: String,
                          variation: String,
                          weight: BigDecimal
-                         /* duration: Option[???] */) extends AbstractModel
+                         /* duration: Option[???] */)
