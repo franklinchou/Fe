@@ -11,13 +11,15 @@ import play.modules.reactivemongo.ReactiveMongoApi
 
 object LoadTestData extends App {
 
+  import scala.concurrent.ExecutionContext.Implicits.global
+
   val application = new GuiceApplicationBuilder().build
 
   val injector = application.injector
 
-  val reactiveMongoApi = application.injector.instanceOf[ReactiveMongoApi]
+  val _ = injector.instanceOf[ReactiveMongoApi]
 
-  val sessionRepo = application.injector.instanceOf[SessionRepo]
+  val sessionRepo = injector.instanceOf[SessionRepo]
 
   val mockExerciseModel =
     ExerciseModel.apply(

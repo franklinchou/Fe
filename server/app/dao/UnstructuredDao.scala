@@ -1,15 +1,15 @@
 package dao
 
 import lib.containers.StringContainer
-import models.{AbstractModelId, AbstractModel}
+import models.{AbstractModel, AbstractModelId}
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 
 /**
   * Abstract unstructured database access object
   */
-trait UnstructuredDao[R <: AbstractModel] {
+trait UnstructuredDao[M <: AbstractModel] {
 
 
   /**
@@ -18,7 +18,7 @@ trait UnstructuredDao[R <: AbstractModel] {
     * @param record
     * @return
     */
-  def insert(record: R): Future[Boolean]
+  def insert(record: M)(implicit ec: ExecutionContext): Future[Boolean]
 
 
   /**

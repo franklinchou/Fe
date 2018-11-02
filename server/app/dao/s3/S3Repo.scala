@@ -40,7 +40,7 @@ trait S3Repo[M <: AbstractModel] extends UnstructuredDao[M] {
   def upsert(model: M)(implicit ec: ExecutionContext): Future[Boolean] = {
 
     val key = model.id.toString
-    val json = model.toJson
+    val json = Json.toJson[M](model)
     val bytes = Json.toBytes(json)
     val stream = new ByteArrayInputStream(bytes)
 

@@ -13,7 +13,6 @@ import scala.concurrent.{ExecutionContext, Future}
 class SessionRepo @Inject()(val rma: ReactiveMongoApi)
                            (implicit ec: ExecutionContext) extends MongoRepo[SessionModel] {
 
-
   /**
     * Name of the collection where records are stored
     */

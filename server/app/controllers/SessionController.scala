@@ -37,7 +37,6 @@ class SessionController @Inject()(cc: ControllerComponents,
     implicit request: Request[JsValue] => {
       val body = request.body
       body.validate[SessionModel]
-
       Ok
     }
   }

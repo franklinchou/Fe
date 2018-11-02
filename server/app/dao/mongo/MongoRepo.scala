@@ -35,7 +35,7 @@ trait MongoRepo[M <: AbstractModel] extends UnstructuredDao[M] {
   }
 
 
-  private def insert(model: M, upsert: Boolean) = {
+  private def insert(model: M, upsert: Boolean)(implicit ec: ExecutionContext): Future[Boolean] = {
     val id = model.id.toString
     val selector = Json.obj("id" -> id)
     val modifier = Json.obj("$set" -> Json.toJson[M](model))
