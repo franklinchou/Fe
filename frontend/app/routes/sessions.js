@@ -1,16 +1,10 @@
 import Route from '@ember/routing/route';
+import { reads } from '@ember/object/computed';
 
-import { inject } from '@ember/service';
 
+// routes/sessions.js
 export default Route.extend({
 
-    store: inject(),
-
-    model(/* empty for now */) {
-        const store = this.get('store');
-
-        // Send a call to GET /sessions
-        return store.findAll('session');
-    }
+    sessions: reads('model.sessions')
 
 });

@@ -2,7 +2,10 @@
   <div class="right tomster"></div>
   <h2>My sessions</h2>
   <p>
-    List sessions here
+    {{
+      panel-all-sessions-overview
+      sessions=sessions
+    }}
   </p>
 
   {{#link-to "about" class="button"}}
