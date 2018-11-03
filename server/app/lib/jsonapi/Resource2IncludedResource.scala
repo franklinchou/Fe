@@ -16,6 +16,6 @@ case class Resource2IncludedResource(dr: DataResource) extends DataResource {
 
   lazy val meta: Option[JsObject] = dr.meta
 
-  override val toJsonApi: JsObject = reduce(affiliates, base)
+  override lazy val toJsonApi: JsObject = reduce(affiliates, base)
 
 }

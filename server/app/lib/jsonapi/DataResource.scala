@@ -24,8 +24,8 @@ trait DataResource extends DataIdResource {
 
   protected val base = Json.obj("type" -> `type`, "id" -> id)
 
-  override val toJsonApi: JsObject = {
-    Json.obj(topLevelTag -> reduce(affiliates, base))
+  override lazy val toJsonApi: JsObject = {
+    reduce(affiliates, base)
   }
 
 }

@@ -13,7 +13,7 @@ case class ExerciseRelationshipResource(model: ExerciseModel) extends Relationsh
 
   lazy val id: String = model.id.toString
 
-  lazy val topLevelTag: String = "exercise"
+  override lazy val topLevelTag: String = "exercise"
 
   lazy val data: JsObject =
     Json.obj(
