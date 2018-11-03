@@ -2,17 +2,18 @@ package dao.mongo
 
 import com.google.inject.Inject
 import lib.containers.StringContainer
+import lib.jsonapi.Resource
 import models._
 import play.api.libs.json.{JsObject, Json}
 import play.modules.reactivemongo.ReactiveMongoApi
 import reactivemongo.api.{Cursor, ReadPreference}
 import reactivemongo.play.json._
+import resources.SessionResource
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class ExerciseSessionRepo @Inject()(val rma: ReactiveMongoApi)
-                                   (implicit ec: ExecutionContext) extends MongoRepo[SessionModel] {
-
+class SessionRepo @Inject()(val rma: ReactiveMongoApi)
+                           (implicit ec: ExecutionContext) extends MongoRepo[SessionResource] {
 
   /**
     * Name of the collection where records are stored
@@ -35,20 +36,12 @@ class ExerciseSessionRepo @Inject()(val rma: ReactiveMongoApi)
   }
 
   /**
-    * Insert a record into the database.
-    *
-    * @param record
-    * @return
-    */
-  def create(record: AbstractModel): Future[Boolean] = ???
-
-  /**
     * Upsert a record into the database.
     *
     * @param record
     * @return
     */
-  def upsert(record: AbstractModel): Future[Boolean] = ???
+  def upsert(record: Resource): Future[Boolean] = ???
 
   /**
     * Remove a record from the database.

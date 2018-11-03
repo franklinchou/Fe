@@ -2,16 +2,18 @@ package dao.mongo
 
 import dao.UnstructuredDao
 import lib.containers.StringContainer
-import models.{AbstractModel, AbstractModelId}
+import lib.jsonapi.Resource
+import models.AbstractModelId
 import play.api.Logger
 import play.api.libs.json.Json
 import play.modules.reactivemongo.ReactiveMongoApi
+import reactivemongo.api.DefaultDB
 import reactivemongo.play.json._
 import reactivemongo.play.json.collection.JSONCollection
 
 import scala.concurrent.{ExecutionContext, Future}
 
-trait MongoRepo[M <: AbstractModel] extends UnstructuredDao[M] {
+trait MongoRepo[R <: Resource] extends UnstructuredDao[R] {
 
 
   val rma: ReactiveMongoApi
@@ -20,7 +22,7 @@ trait MongoRepo[M <: AbstractModel] extends UnstructuredDao[M] {
   /**
     * Database
     */
-  val db = rma.database
+  val db: Future[DefaultDB] = rma.database
 
 
   /**
@@ -41,11 +43,14 @@ trait MongoRepo[M <: AbstractModel] extends UnstructuredDao[M] {
     * @param ec
     * @return
     */
-  def create(model: M)(implicit ec: ExecutionContext): Future[Boolean] = {
-    Logger.info(s"Inserting record ${model.id.toString} into $collectionName")
+  def insert(model: R)(implicit ec: ExecutionContext): Future[Boolean] = {
+    val id = model.id
+    val json = model.toJsonApi
+
+    Logger.info(s"Inserting model $id into $collectionName")
 
     collection
-      .flatMap(_.insert(model.toJson))
+      .flatMap(_.insert(json))
       .map(_.ok)
   }
 
@@ -57,10 +62,10 @@ trait MongoRepo[M <: AbstractModel] extends UnstructuredDao[M] {
     * @param ec
     * @return
     */
-  def upsert(model: M)(implicit ec: ExecutionContext): Future[Boolean] = {
+  def upsert(model: R)(implicit ec: ExecutionContext): Future[Boolean] = {
     val id = model.id.toString
     val selector = Json.obj("id" -> id)
-    val modifier = Json.obj("$set" -> model.toJson)
+    val modifier = Json.obj("$set" -> model.toJsonApi)
 
     Logger.info(s"Upserting model $id into $collectionName")
 

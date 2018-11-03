@@ -2,7 +2,7 @@ package marshall.jsonapi.resources
 
 import java.time.LocalDate
 
-import lib.jsonapi.resources.SessionResource
+import resources.SessionResource
 import marshall.mockSession
 import org.scalatest.FunSpec
 import play.api.libs.json.Json

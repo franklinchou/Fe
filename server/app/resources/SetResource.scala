@@ -1,4 +1,4 @@
-package lib.jsonapi.resources
+package resources
 
 import lib.containers.StringContainer
 import lib.jsonapi.DataResource

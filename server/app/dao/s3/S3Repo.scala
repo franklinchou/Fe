@@ -5,7 +5,8 @@ import java.io.ByteArrayInputStream
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.model.{DeleteObjectRequest, ObjectMetadata}
 import dao.UnstructuredDao
-import models.{AbstractModelId, AbstractModel}
+import lib.jsonapi.Resource
+import models.AbstractModelId
 import play.api.Logger
 import play.api.libs.json.Json
 
@@ -13,7 +14,7 @@ import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success, Try}
 
 
-trait S3Repo[M <: AbstractModel] extends UnstructuredDao[M] {
+trait S3Repo[M <: Resource] extends UnstructuredDao[M] {
 
 
   val bucket: String
@@ -39,8 +40,8 @@ trait S3Repo[M <: AbstractModel] extends UnstructuredDao[M] {
     */
   def upsert(model: M)(implicit ec: ExecutionContext): Future[Boolean] = {
 
-    val key = model.id.toString
-    val json = model.toJson
+    val key = model.id
+    val json = model.toJsonApi
     val bytes = Json.toBytes(json)
     val stream = new ByteArrayInputStream(bytes)
 

@@ -1,16 +1,16 @@
 package dao
 
-
 import lib.containers.StringContainer
-import models.{AbstractModelId, AbstractModel}
+import lib.jsonapi.Resource
+import models.AbstractModelId
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 
 /**
   * Abstract unstructured database access object
   */
-trait UnstructuredDao[R <: AbstractModel] {
+trait UnstructuredDao[R <: Resource] {
 
 
   /**
@@ -19,7 +19,7 @@ trait UnstructuredDao[R <: AbstractModel] {
     * @param record
     * @return
     */
-  def create(record: AbstractModel): Future[Boolean]
+  def insert(record: R)(implicit ec: ExecutionContext): Future[Boolean]
 
 
   /**
@@ -28,7 +28,7 @@ trait UnstructuredDao[R <: AbstractModel] {
     * @param record
     * @return
     */
-  def upsert(record: AbstractModel): Future[Boolean]
+  def upsert(record: Resource): Future[Boolean]
 
 
   /**
