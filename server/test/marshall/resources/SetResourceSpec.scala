@@ -1,4 +1,4 @@
-package marshall.jsonapi.resources
+package marshall.resources
 
 import lib.containers.StringContainer
 import resources.SetResource
