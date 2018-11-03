@@ -19,8 +19,4 @@ object StringContainer {
 }
 
 
-final case class StringContainer[A](value: String) extends AnyVal {
-
-  override def toString: String = value
-
-}
+final case class StringContainer[A](value: String) extends AnyVal

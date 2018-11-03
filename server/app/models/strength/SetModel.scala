@@ -4,8 +4,8 @@ import java.util.UUID
 
 import ai.x.play.json.Jsonx
 import lib.containers.StringContainer
-import models.{AbstractModelId, ExerciseModel}
-import play.api.libs.json.OFormat
+import models.{AbstractModelId, BaseModel, ExerciseModel}
+import play.api.libs.json.{JsObject, OFormat}
 
 
 object SetModel {
@@ -41,4 +41,4 @@ object SetModel {
 
 case class SetModel(id: StringContainer[AbstractModelId],
                     multiplier: Int,
-                    exercise: ExerciseModel)
+                    exercise: ExerciseModel) extends BaseModel

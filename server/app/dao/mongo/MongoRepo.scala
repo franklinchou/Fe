@@ -1,11 +1,10 @@
 package dao.mongo
 
-import dao.UnstructuredDao
+import dao.UnstructuredDAO
 import lib.containers.StringContainer
-import lib.jsonapi.Resource
-import models.AbstractModelId
+import models.{AbstractModelId, BaseModel}
 import play.api.Logger
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OWrites}
 import play.modules.reactivemongo.ReactiveMongoApi
 import reactivemongo.api.DefaultDB
 import reactivemongo.play.json._
@@ -13,7 +12,7 @@ import reactivemongo.play.json.collection.JSONCollection
 
 import scala.concurrent.{ExecutionContext, Future}
 
-trait MongoRepo[R <: Resource] extends UnstructuredDao[R] {
+trait MongoRepo[M <: BaseModel] extends UnstructuredDAO[M] {
 
 
   val rma: ReactiveMongoApi
@@ -41,16 +40,17 @@ trait MongoRepo[R <: Resource] extends UnstructuredDao[R] {
     *
     * @param model
     * @param ec
+    * @param w Adding the implicit writer will allow concrete write definitions to override
+    *          the [[BaseModel]] writer
     * @return
     */
-  def insert(model: R)(implicit ec: ExecutionContext): Future[Boolean] = {
+  def insert(model: M)(implicit ec: ExecutionContext, w: OWrites[M]): Future[Boolean] = {
     val id = model.id
-    val json = model.toJsonApi
 
     Logger.info(s"Inserting model $id into $collectionName")
 
     collection
-      .flatMap(_.insert(json))
+      .flatMap(_.insert(model))
       .map(_.ok)
   }
 
@@ -62,10 +62,10 @@ trait MongoRepo[R <: Resource] extends UnstructuredDao[R] {
     * @param ec
     * @return
     */
-  def upsert(model: R)(implicit ec: ExecutionContext): Future[Boolean] = {
+  def upsert(model: M)(implicit ec: ExecutionContext): Future[Boolean] = {
     val id = model.id.toString
     val selector = Json.obj("id" -> id)
-    val modifier = Json.obj("$set" -> model.toJsonApi)
+    val modifier = Json.obj("$set" -> Json.toJson[M](model))
 
     Logger.info(s"Upserting model $id into $collectionName")
 

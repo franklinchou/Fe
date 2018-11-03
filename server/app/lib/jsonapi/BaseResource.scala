@@ -2,7 +2,7 @@ package lib.jsonapi
 
 import play.api.libs.json.JsObject
 
-trait Resource {
+trait BaseResource {
 
   val id: String
 

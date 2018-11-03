@@ -2,7 +2,7 @@ package lib.jsonapi
 
 import play.api.libs.json.{JsObject, Json}
 
-trait RelationshipResource extends Resource {
+trait RelationshipResource extends BaseResource {
 
   val topLevelTag: String
 
