@@ -3,6 +3,7 @@ package services
 import com.google.inject.Inject
 import dao.mongo.{MongoRepo, SessionRepo}
 import models.SessionModel
+import resources.SessionResource
 
 import scala.concurrent.{ExecutionContext, Future}
 

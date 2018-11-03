@@ -42,4 +42,4 @@ object SessionModel {
 
 case class SessionModel(id: StringContainer[AbstractModelId],
                         date: LocalDate,
-                        sets: List[SetModel])
+                        sets: List[SetModel]) extends BaseModel

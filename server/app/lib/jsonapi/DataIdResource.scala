@@ -6,7 +6,7 @@ import play.api.libs.json.{JsObject, Json}
   * Corresponds to "ResourceIdentifierObject"
   * See http://jsonapi.org/format/#document-resource-identifier-objects
   */
-trait DataIdResource extends Resource {
+trait DataIdResource extends BaseResource {
 
   val topLevelTag: String = "data"
 

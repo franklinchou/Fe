@@ -2,18 +2,17 @@ package dao.mongo
 
 import com.google.inject.Inject
 import lib.containers.StringContainer
-import lib.jsonapi.Resource
+import lib.jsonapi.BaseResource
 import models._
-import play.api.libs.json.{JsObject, Json}
+import play.api.libs.json.Json
 import play.modules.reactivemongo.ReactiveMongoApi
 import reactivemongo.api.{Cursor, ReadPreference}
 import reactivemongo.play.json._
-import resources.SessionResource
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class SessionRepo @Inject()(val rma: ReactiveMongoApi)
-                           (implicit ec: ExecutionContext) extends MongoRepo[SessionResource] {
+                           (implicit ec: ExecutionContext) extends MongoRepo[SessionModel] {
 
   /**
     * Name of the collection where records are stored
@@ -28,7 +27,10 @@ class SessionRepo @Inject()(val rma: ReactiveMongoApi)
     */
   def find(user: StringContainer[AbstractUserId]): Future[List[SessionModel]] = {
 
-    val query: JsObject = Json.obj("user" -> user.value)
+    // TODO Make find by user actually work
+    // val query: JsObject = Json.obj("user" -> user.value)
+    val query = Json.obj()
+
 
     collection
       .map(_.find(query).cursor[SessionModel](ReadPreference.primary))
@@ -41,7 +43,7 @@ class SessionRepo @Inject()(val rma: ReactiveMongoApi)
     * @param record
     * @return
     */
-  def upsert(record: Resource): Future[Boolean] = ???
+  def upsert(record: BaseResource): Future[Boolean] = ???
 
   /**
     * Remove a record from the database.

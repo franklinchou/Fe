@@ -5,9 +5,10 @@ import lib.containers.StringContainer
 import models.{AbstractUserId, SessionModel}
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
+import resources.SessionResource
 import services.ReportingService
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.ExecutionContext
 
 
 @Singleton
@@ -16,20 +17,14 @@ class SessionController @Inject()(cc: ControllerComponents,
                                  (implicit ec: ExecutionContext) extends AbstractController(cc) {
 
   def index() = Action.async  { implicit request: Request[AnyContent] =>
-    val user = request.headers.get("user").getOrElse("")
+    val user = request.headers.get("user").getOrElse("") // TODO Make this work
 
-    if (user == "") {
-      Future { Unauthorized }
-
-      // TODO Should hit a user service?
-    } else {
-      rs
-        .findAll(StringContainer.apply[AbstractUserId](user))
-        .map { model =>
-          val json = Json.toJson(model)
-          Ok(json)
-        }
-    }
+    rs
+      .findAll(StringContainer.apply[AbstractUserId](user))
+      .map { models =>
+        val json = models.map(m => SessionResource(m).toJsonApi).fold(Json.obj())(_ ++ _)
+        Ok(json)
+      }
   }
 
 
