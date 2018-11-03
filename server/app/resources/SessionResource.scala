@@ -10,7 +10,7 @@ import play.api.libs.json._
 
 object SessionResource {
 
-  final val `type`: String = "exercise-session"
+  final val `type`: String = "session"
 
   implicit lazy val reads: Reads[SessionResource] = (js: JsValue) => {
 

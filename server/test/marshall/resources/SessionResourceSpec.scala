@@ -15,7 +15,7 @@ class SessionResourceSpec extends FunSpec {
     s"""
        |{
        |  "data" : {
-       |    "type" : "exercise-session",
+       |    "type" : "session",
        |    "id" : "mock-session",
        |    "attributes" : {
        |      "date" : "${LocalDate.now}"
