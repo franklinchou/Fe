@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
-import ENV from 'fe/config/environment';
 import { computed } from '@ember/object';
+
+import ENV from 'fe/config/environment';
 
 export default Controller.extend({
 
