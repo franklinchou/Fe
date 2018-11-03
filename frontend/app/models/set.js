@@ -4,13 +4,13 @@ export default DS.Model.extend({
 
     multiplier: DS.attr('number'),
 
-    exercise: DS.attr('exercise'),
+    exercise: DS.attr('string'),
 
-    description: DS.attr('description'),
+    description: DS.attr('string'),
 
-    variation: DS.attr('variation'),
+    variation: DS.attr('string'),
 
-    weight: DS.attr('weight'),
+    weight: DS.attr('number'),
 
     exercises: DS.hasMany('exercise')
 
