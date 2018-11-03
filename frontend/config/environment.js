@@ -3,6 +3,7 @@
 module.exports = function(environment) {
   let ENV = {
     modulePrefix: 'fe',
+    name: 'Fe: The Church of Iron',
     environment,
     rootURL: '/',
     locationType: 'auto',
