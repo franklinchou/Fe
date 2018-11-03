@@ -1,7 +1,9 @@
 <div class="environment">
-  <div class="alert alert-danger" role="alert">
-    Warning! Running in {{environment}} mode.
-  </div>
+  {{#if displayInfoHeader}}
+    <div class="alert alert-danger" role="alert">
+      Warning! Running in {{environment}} mode.
+    </div>
+  {{/if}}
 </div>
 
 <div class="container">
