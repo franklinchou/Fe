@@ -20,7 +20,7 @@ class SessionControllerSpec
 
   "A Reporting Controller" should {
 
-    s"$UNAUTHORIZED if the user header is empty" in {
+    s"$UNAUTHORIZED if the user header is empty" ignore {
       val request1 = FakeRequest(GET, "/sessions")
       val request2 = FakeRequest(GET, "/sessions", NO_USER, "")
 
@@ -32,7 +32,7 @@ class SessionControllerSpec
     }
 
     // Testing with proper user header
-    s"$OK if the proper user header is given" ignore {
+    s"$OK if the proper user header is given" in {
 
       /**
         * For some reason using the FakeRequest.apply(method, endpoint, headers, body)
