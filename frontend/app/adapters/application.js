@@ -9,7 +9,6 @@ export default DS.JSONAPIAdapter.extend({
 
     host: computed('environment', function() {
         if (this.get('environment') === 'development') {
-            // console.log('here');
             return 'http://localhost:9000';
         }
     }),
