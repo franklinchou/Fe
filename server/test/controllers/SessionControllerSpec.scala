@@ -32,7 +32,7 @@ class SessionControllerSpec
     }
 
     // Testing with proper user header
-    s"$OK if the proper user header is given" in {
+    s"$OK if the proper user header is given" ignore {
 
       /**
         * For some reason using the FakeRequest.apply(method, endpoint, headers, body)
