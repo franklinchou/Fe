@@ -18,7 +18,7 @@ class HomeController @Inject()(cc: ControllerComponents,
 
     val info =
       Json.obj(
-        "application" -> "Fe",
+        "application" -> config.get[String]("app.name"),
         "description" -> "Weight lifting tracker app",
         "environment" -> config.get[String]("app.env"),
         "mongo" -> mongo
