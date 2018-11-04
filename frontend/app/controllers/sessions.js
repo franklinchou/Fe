@@ -8,6 +8,6 @@ export default Controller.extend({
 
     store: inject(),
 
-    sessions: readOnly('model')
+    sessions: readOnly('model.sessions')
 
 });
