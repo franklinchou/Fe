@@ -5,7 +5,7 @@ import lib.containers.StringContainer
 import models.{AbstractUserId, SessionModel}
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
-import resources.SessionResource
+import resources.{SessionResource, SessionResources}
 import services.ReportingService
 
 import scala.concurrent.ExecutionContext
@@ -22,7 +22,7 @@ class SessionController @Inject()(cc: ControllerComponents,
     rs
       .findAll(StringContainer.apply[AbstractUserId](user))
       .map { models =>
-        val json = models.map(m => SessionResource(m).toJsonApi).fold(Json.obj())(_ ++ _)
+        val json = SessionResources(models).toJsonApi
         Ok(json)
       }
   }

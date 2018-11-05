@@ -3,14 +3,14 @@ package resources
 import java.time.LocalDate
 
 import lib.containers.StringContainer
-import lib.jsonapi.{CompoundDataResource, Resource2IncludedResource}
+import lib.jsonapi.{DataResourceIncluded, Resource2IncludedResource}
 import models.{AbstractModelId, SessionModel}
 import models.strength.SetModel
 import play.api.libs.json._
 
 object SessionResource {
 
-  final val `type`: String = "exercise-session"
+  final val `type`: String = "session"
 
   implicit lazy val reads: Reads[SessionResource] = (js: JsValue) => {
 
@@ -53,28 +53,40 @@ object SessionResource {
   *
   * @param sessionModel
   */
-case class SessionResource(sessionModel: SessionModel) extends CompoundDataResource {
+case class SessionResource(sessionModel: SessionModel) extends DataResourceIncluded {
 
   lazy val `type`: String = SessionResource.`type`
 
   lazy val id: String = sessionModel.id.value
 
-  lazy val attributes: Option[JsObject] = {
-    val json =
+  lazy val attributes: Option[JsObject] =
+    Some(
       Json.obj(
         "date" -> sessionModel.date.toString
       )
-    Some(json)
-  }
+    )
 
-  lazy val relationships: Option[JsObject] = None
+  private val setType = SetResource.`type`
+
+  lazy val relationships: Option[JsObject] =
+    Some(
+      sessionModel
+        .sets
+        .map(_.id.value)
+        .map(id => Json.obj(setType -> id))
+        .fold(Json.obj())(_ ++ _)
+    )
 
   lazy val links: Option[JsObject] = None
 
-  lazy val included: List[JsObject] =
-    sessionModel
-      .sets
-      .map(s => Resource2IncludedResource(SetResource.apply(s)))
-      .map(sr => sr.toJsonApi)
+  lazy val included: List[JsObject] = List.empty[JsObject]
+
+  override lazy val toJsonApi: JsObject =
+    Json.obj(
+      "type" -> `type`,
+      "id" -> sessionModel.id,
+      "attributes" -> attributes,
+      "relationships" -> relationships
+    )
 
 }

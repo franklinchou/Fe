@@ -1,16 +1,21 @@
 import Route from '@ember/routing/route';
-
 import { inject } from '@ember/service';
+    
+import RSVP from 'rsvp';
 
+
+// routes/sessions.js
 export default Route.extend({
 
     store: inject(),
 
     model(/* empty for now */) {
+
         const store = this.get('store');
 
-        // Send a call to GET /sessions
-        return store.findAll('session');
+        return RSVP.hash({
+            sessions: store.findAll('session')
+        });
     }
 
 });

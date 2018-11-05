@@ -8,7 +8,7 @@ import play.api.libs.json.Json
 class ExerciseResourceSpec extends FunSpec {
 
   describe("Exercise resource") {
-    it("should marshall exercise -> exercise-resource") {
+    ignore("should marshall exercise -> exercise-resource") {
       val model: ExerciseModel = marshall.mockBenchPress
 
       val resource = ExerciseResource.apply(model)

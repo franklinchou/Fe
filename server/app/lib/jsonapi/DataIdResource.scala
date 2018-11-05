@@ -8,15 +8,13 @@ import play.api.libs.json.{JsObject, Json}
   */
 trait DataIdResource extends BaseResource {
 
-  val topLevelTag: String = "data"
-
   val `type`: String
 
   val id: String
 
   val meta: Option[JsObject]
 
-  val toJsonApi: JsObject =
+  lazy val toJsonApi: JsObject =
     Json.obj(
       topLevelTag ->
         Json.obj(

@@ -4,4 +4,6 @@ export default DS.Model.extend({
 
     date: DS.attr('date'),
 
+    sets: DS.hasMany('set')
+
 });

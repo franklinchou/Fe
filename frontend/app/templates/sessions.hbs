@@ -1,11 +1,15 @@
 <div class="jumbo">
   <div class="right tomster"></div>
   <h2>My sessions</h2>
-  <p>
-    List sessions here
-  </p>
-
-  {{#link-to "about" class="button"}}
-    About Fe
-  {{/link-to}}
+  <div class="panel" id="sessions">
+    {{#each sessions as |session index|}}
+      {{
+        panel-session-overview
+        session=session
+        index=index
+      }}
+    {{else}}
+      <p>Oops! Looks like you haven't logged any exercise sessions!</p>
+    {{/each}}
+  </div>
 </div> 
